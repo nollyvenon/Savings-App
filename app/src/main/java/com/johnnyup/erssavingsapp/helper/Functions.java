@@ -18,7 +18,7 @@ public class Functions {
     private static String MAIN_URL = "https://www.savings.ersnets.net/mcalls/";
 
     // Login URL
-    public static String LOGIN_URL = MAIN_URL + "erssavingsapp.php";
+    public static String LOGIN_URL = MAIN_URL + "login";
 
     // Register URL
     public static String REGISTER_URL = MAIN_URL + "register.php";
@@ -28,6 +28,10 @@ public class Functions {
 
     // Forgot Password
     public static String RESET_PASS_URL = MAIN_URL + "reset-password.php";
+
+    // savings
+    public static String SAVINGS_URL = MAIN_URL + "savings";
+    public static String ADD_SAVINGS_URL = MAIN_URL + "savings/save";
 
 
     /**

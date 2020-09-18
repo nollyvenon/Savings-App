@@ -1,0 +1,149 @@
+<com.google.android.material.navigation.NavigationView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_view"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_gravity="start"
+    android:background="@color/darkBlue"
+    android:fitsSystemWindows="true"
+    android:paddingHorizontal="8dp"
+    android:paddingTop="50dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top|center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/welcome"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_image"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_marginTop="20dp"
+                android:src="@color/white"
+                android:scaleType="centerCrop"/>
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textColor="@color/white"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:paddingStart="40dp"
+            tools:ignore="RtlSymmetry">
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="Home"
+                android:textColor="@color/colorPrimaryLight"
+                android:textSize="14sp" />
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="Savings"
+                android:textColor="@color/colorPrimaryLight"
+                android:textSize="14sp" />
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="Investments"
+                android:textColor="@color/colorPrimaryLight"
+                android:textSize="14sp" />
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="Interests"
+                android:textColor="@color/colorPrimaryLight"
+                android:textSize="14sp" />
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="Payouts"
+                android:textColor="@color/colorPrimaryLight"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="40dp"
+            android:paddingBottom="10dp"
+            android:gravity="bottom"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/change_password"
+                style="@style/TextAppearance.AppCompat.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/logout"
+                android:text="@string/change_password"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/colorPrimaryLight"
+                android:textSize="14sp"
+                app:drawableTint="@color/colorPrimaryLight"
+                app:drawableStartCompat="@drawable/icon_edit"
+                android:drawablePadding="3dp" />
+
+            <TextView
+                android:id="@+id/logout"
+                style="@style/TextAppearance.AppCompat.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:text="@string/logout"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/colorPrimaryLight"
+                android:textSize="14sp"
+                app:drawableTint="@color/colorPrimaryLight"
+                app:drawableStartCompat="@drawable/icon_logout"
+                android:drawablePadding="3dp"/>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</com.google.android.material.navigation.NavigationView>

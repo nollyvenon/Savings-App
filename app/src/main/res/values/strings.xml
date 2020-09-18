@@ -12,4 +12,24 @@
     <string name="change_password">Change Password</string>
     <string name="old_password">Old Password</string>
     <string name="new_password">New Password</string>
+    <string name="status">Status</string>
+    <string name="daily_amount">Daily Amount</string>
+    <string name="end_date">End Date</string>
+    <string name="start_date">Start Date</string>
+    <string name="amount">Amount</string>
+    <string name="monthly">Monthly</string>
+    <string name="start_new_savings">Start New Savings</string>
+    <string name="view_savings">View Savings</string>
+    <string name="new_savings">New Savings</string>
+    <string name="new_investment">New Investment</string>
+    <string name="join_ersnetwork">Join ERSNetwork</string>
+    <string name="wallet">Wallet</string>
+    <string name="savings">Savings</string>
+    <string name="investments">Investments</string>
+    <string name="payouts">Payouts</string>
+    <string name="user">User</string>
+    <string name="savings_label">Savings Label</string>
+    <string name="enter_amount">Enter Amount</string>
+    <string name="start">Start</string>
+    <string name="start_new_investment">Start New Investment</string>
 </resources>

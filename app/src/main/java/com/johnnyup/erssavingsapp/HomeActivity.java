@@ -9,16 +9,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
@@ -36,10 +40,14 @@ import java.util.Objects;
 public class HomeActivity extends AppCompatActivity {
     private static final String TAG = HomeActivity.class.getSimpleName();
 
-    private MaterialButton btnChangePass, btnLogout;
+    private TextView btnChangePass, btnLogout;
     private SessionManager session;
+    ImageButton openDrawer;
+    DrawerLayout drawer;
+    RecyclerView recyclerView;
+    LinearLayout savingsWrap;
 
-    private HashMap<String,String> user = new HashMap<>();
+    private HashMap<String, String> user = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +58,18 @@ public class HomeActivity extends AppCompatActivity {
         TextView txtEmail = findViewById(R.id.email);
         btnChangePass = findViewById(R.id.change_password);
         btnLogout = findViewById(R.id.logout);
+        openDrawer = findViewById(R.id.open_drawer);
+        drawer = findViewById(R.id.drawer_layout);
+        savingsWrap = findViewById(R.id.Savings_wrap);
+        recyclerView = findViewById(R.id.savings_recycler_view);
+        TextView startNewSaving = findViewById(R.id.start_new_saving);
+        startNewSaving.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, AddSavingActivity.class);
+                startActivity(intent);
+            }
+        });
 
         DatabaseHandler db = new DatabaseHandler(HomeActivity.this);
         user = db.getUserDetails();
@@ -72,6 +92,18 @@ public class HomeActivity extends AppCompatActivity {
 
         // Hide Keyboard
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+        openDrawer.setOnClickListener(v -> {
+            drawer.openDrawer(GravityCompat.START);
+        });
+
+        savingsWrap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, SavingsActivity.class);
+                startActivity(intent);
+            }
+        });
 
         init();
     }
@@ -106,8 +138,8 @@ public class HomeActivity extends AppCompatActivity {
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    if(Objects.requireNonNull(oldPassword.getEditText()).getText().length() > 0 &&
-                            Objects.requireNonNull(newPassword.getEditText()).getText().length() > 0){
+                    if (Objects.requireNonNull(oldPassword.getEditText()).getText().length() > 0 &&
+                            Objects.requireNonNull(newPassword.getEditText()).getText().length() > 0) {
                         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
                     } else {
                         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
@@ -163,21 +195,21 @@ public class HomeActivity extends AppCompatActivity {
 
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 Functions.RESET_PASS_URL, response -> {
-                    Log.d(TAG, "Reset Password Response: " + response);
-                    hideDialog();
-    
-                    try {
-                        JSONObject jObj = new JSONObject(response);
+            Log.d(TAG, "Reset Password Response: " + response);
+            hideDialog();
 
-                        Toast.makeText(HomeActivity.this, jObj.getString("message"), Toast.LENGTH_LONG).show();
+            try {
+                JSONObject jObj = new JSONObject(response);
 
-                    } catch (JSONException e) {
-                        // JSON error
-                        e.printStackTrace();
-                        Toast.makeText(HomeActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-    
-                }, error -> {
+                Toast.makeText(HomeActivity.this, jObj.getString("message"), Toast.LENGTH_LONG).show();
+
+            } catch (JSONException e) {
+                // JSON error
+                e.printStackTrace();
+                Toast.makeText(HomeActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+
+        }, error -> {
             Log.e(TAG, "Reset Password Error: " + error.getMessage());
             Toast.makeText(HomeActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
             hideDialog();

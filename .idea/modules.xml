@@ -4,7 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ERSSavings.iml" filepath="$PROJECT_DIR$/ERSSavings.iml" />
       <module fileurl="file://$PROJECT_DIR$/MyApplication.iml" filepath="$PROJECT_DIR$/MyApplication.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="ers_savings_app/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ers_savings_app.iml" filepath="$PROJECT_DIR$/.idea/modules/ers_savings_app.iml" group="ers_savings_app" />
     </modules>
   </component>
 </project>
