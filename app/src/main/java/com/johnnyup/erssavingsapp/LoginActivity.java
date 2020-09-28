@@ -36,8 +36,10 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = LoginActivity.class.getSimpleName();
 
     private static String KEY_UID = "uid";
+    private static String KEY_TOKEN = "token";
     private static String KEY_NAME = "name";
     private static String KEY_EMAIL = "email";
+    private static String KEY_TYPE = "type";
     private static String KEY_CREATED_AT = "created_at";
 
     private MaterialButton btnLogin, btnLinkToRegister, btnForgotPass;
@@ -97,12 +99,6 @@ public class LoginActivity extends AppCompatActivity {
                 // Prompt user to enter credentials
                 Toast.makeText(getApplicationContext(), "Please enter the credentials!", Toast.LENGTH_LONG).show();
             }
-        });
-
-        // Link to Register Screen
-        btnLinkToRegister.setOnClickListener(view -> {
-            Intent i = new Intent(LoginActivity.this, RegisterActivity.class);
-            startActivity(i);
         });
 
         // Forgot Password Dialog
@@ -167,7 +163,6 @@ public class LoginActivity extends AppCompatActivity {
     private void loginProcess(final String email, final String password) {
         // Tag used to cancel the request
         String tag_string_req = "req_login";
-
         showDialog("Logging in ...");
 
         StringRequest strReq = new StringRequest(Request.Method.POST,
@@ -189,7 +184,8 @@ public class LoginActivity extends AppCompatActivity {
 
                             if(Integer.parseInt(json_user.getString("verified")) == 1){
                                 db.addUser(json_user.getString(KEY_UID), json_user.getString(KEY_NAME),
-                                        json_user.getString(KEY_EMAIL), json_user.getString(KEY_CREATED_AT));
+                                        json_user.getString(KEY_TYPE), json_user.getString(KEY_EMAIL),
+                                        json_user.getString(KEY_CREATED_AT), jObj.getString(KEY_TOKEN));
 
                                 Intent upanel = new Intent(LoginActivity.this, HomeActivity.class);
                                 upanel.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -245,15 +241,13 @@ public class LoginActivity extends AppCompatActivity {
         showDialog("Please wait...");
 
         StringRequest strReq = new StringRequest(Request.Method.POST,
-                Functions.RESET_PASS_URL, response -> {
+                Functions.FORGOT_PASS_URL, response -> {
                     Log.d(TAG, "Reset Password Response: " + response);
                     hideDialog();
 
                     try {
                         JSONObject jObj = new JSONObject(response);
-
                         Toast.makeText(getApplicationContext(), jObj.getString("message"), Toast.LENGTH_LONG).show();
-
                     } catch (JSONException e) {
                         // JSON error
                         e.printStackTrace();
@@ -272,8 +266,7 @@ public class LoginActivity extends AppCompatActivity {
                 Map<String, String> params = new HashMap<>();
 
                 params.put("tag", "forgot_pass");
-                params.put("email", email);
-
+                params.put("username", email);
                 return params;
             }
 
@@ -294,6 +287,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private void showDialog(String title) {
         Functions.showProgressDialog(LoginActivity.this, title);
+    }
+
+    public void goBack(View view) {
+        finish();
     }
 
     private void hideDialog() {

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="4dp"
+    android:layout_marginBottom="10dp"
+    android:background="@color/white"
+    app:cardElevation="1dp">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="14dp"
+        android:stretchColumns="1">
+
+        <TableRow android:paddingVertical="10dp">
+            <TextView
+                style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
+                android:id="@+id/header_title_investment"
+                />
+
+            <TextView
+                android:id="@+id/header_value_investment"
+                android:gravity="end"
+                />
+        </TableRow>
+
+        <View
+            android:layout_height="1dp"
+            android:background="#FF909090" />
+
+        <TableRow android:paddingVertical="10dp">
+            <TextView
+                style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
+                android:id="@+id/header_title_amount"
+                />
+
+            <TextView
+                android:id="@+id/header_value_amount"
+                android:gravity="end"
+                />
+        </TableRow>
+
+        <View
+            android:layout_height="1dp"
+            android:background="#FF909090" />
+
+        <TableRow android:paddingVertical="10dp">
+            <TextView
+                style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
+                android:id="@+id/header_title_day"
+                />
+
+            <TextView
+                android:id="@+id/header_value_day"
+                android:gravity="end"
+                />
+        </TableRow>
+
+        <View
+            android:layout_height="1dp"
+            android:background="#FF909090" />
+
+        <TableRow android:paddingVertical="10dp">
+            <TextView
+                style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
+                android:id="@+id/header_title_interest"
+                />
+
+            <TextView
+                android:id="@+id/header_value_interest"
+                android:gravity="end"
+                />
+        </TableRow>
+
+        <View
+            android:layout_height="1dp"
+            android:background="#FF909090" />
+
+        <TableRow android:paddingVertical="10dp">
+            <TextView
+                style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
+                android:id="@+id/header_title_total"
+                />
+
+            <TextView
+                android:id="@+id/header_value_total"
+                android:gravity="end" />
+        </TableRow>
+
+        <View
+            android:layout_height="1dp"
+            android:background="#FF909090" />
+
+        <TableRow android:paddingVertical="10dp">
+            <TextView
+                style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
+                android:id="@+id/header_title_start_date" />
+
+            <TextView
+                android:id="@+id/header_value_start_date"
+                android:gravity="end" />
+        </TableRow>
+
+        <View
+            android:layout_height="1dp"
+            android:background="#FF909090" />
+
+        <TableRow android:paddingVertical="10dp">
+            <TextView
+                style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
+                android:id="@+id/header_title_status" />
+
+            <TextView
+                android:id="@+id/header_value_status"
+                android:gravity="end" />
+        </TableRow>
+
+        <View
+            android:layout_height="1dp"
+            android:background="#FF909090" />
+
+        <TableRow android:paddingVertical="10dp">
+            <Button
+                android:id="@+id/withdraw"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:background="@color/darkBlue"
+                android:text="@string/withdraw" />
+        </TableRow>
+    </TableLayout>
+</androidx.cardview.widget.CardView>

@@ -46,7 +46,9 @@ public class EmailVerify extends AppCompatActivity {
     Bundle bundle;
 
     private static String KEY_UID = "uid";
+    private static String KEY_TOKEN = "token";
     private static String KEY_NAME = "name";
+    private static String KEY_TYPE = "type";
     private static String KEY_EMAIL = "email";
     private static String KEY_CREATED_AT = "created_at";
 
@@ -136,7 +138,8 @@ public class EmailVerify extends AppCompatActivity {
 
                             Functions logout = new Functions();
                             logout.logoutUser(getApplicationContext());
-                            db.addUser(json_user.getString(KEY_UID), json_user.getString(KEY_NAME), json_user.getString(KEY_EMAIL), json_user.getString(KEY_CREATED_AT));
+                            db.addUser(json_user.getString(KEY_UID), json_user.getString(KEY_NAME), json_user.getString(KEY_TYPE),
+                                    json_user.getString(KEY_EMAIL), json_user.getString(KEY_CREATED_AT), json_user.getString(KEY_TOKEN));
                             session.setLogin(true);
                             Intent upanel = new Intent(EmailVerify.this, HomeActivity.class);
                             upanel.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

@@ -26,7 +26,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_UID = "uid";
     private static final String KEY_NAME = "name";
     private static final String KEY_EMAIL = "email";
+    private static final String KEY_TYPE = "type";
     private static final String KEY_CREATED_AT = "created_at";
+    private static final String KEY_TOKEN = "token";
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -36,7 +38,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String CREATE_LOGIN_TABLE = "CREATE TABLE " + TABLE_LOGIN + "("
             + KEY_ID + " INTEGER PRIMARY KEY,"
             + KEY_UID + " TEXT,"
+            + KEY_TOKEN + " TEXT,"
             + KEY_NAME + " TEXT,"
+            + KEY_TYPE + " TEXT,"
             + KEY_EMAIL + " TEXT UNIQUE,"
             + KEY_CREATED_AT + " TEXT" + ")";
 
@@ -58,13 +62,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     /**
      * Storing user details in database
      * */
-    public void addUser(String uid, String name, String email, String created_at) {
+    public void addUser(String uid, String name, String type, String email, String created_at, String token) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(KEY_UID, uid); // uid
+        values.put(KEY_TOKEN, token); // token
         values.put(KEY_NAME, name); // FirstName
         values.put(KEY_EMAIL, email); // Email
+        values.put(KEY_TYPE, type); // user type
         values.put(KEY_CREATED_AT, created_at); // Created At
 
         // Inserting Row
@@ -104,9 +110,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cursor.moveToFirst();
         if(cursor.getCount() > 0){
             user.put("uid", cursor.getString(1));
-            user.put("name", cursor.getString(2));
-            user.put("email", cursor.getString(3));
-            user.put("created_at", cursor.getString(4));
+            user.put("token", cursor.getString(2));
+            user.put("name", cursor.getString(3));
+            user.put("type", cursor.getString(4));
+            user.put("email", cursor.getString(5));
+            user.put("created_at", cursor.getString(6));
         }
         cursor.close();
         db.close();

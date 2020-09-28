@@ -103,5 +103,29 @@
                 android:id="@+id/header_value_status"
                 android:gravity="end" />
         </TableRow>
+
+        <View
+            android:layout_height="1dp"
+            android:background="#FF909090" />
+
+        <TableRow android:paddingVertical="10dp">
+            <Button
+                android:id="@+id/withdraw"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                app:background="@color/darkBlue"
+                android:text="@string/withdraw" />
+
+            <Button
+                android:id="@+id/fund"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                app:backgroundTint="@color/green"
+                android:text="@string/fund" />
+        </TableRow>
     </TableLayout>
 </androidx.cardview.widget.CardView>

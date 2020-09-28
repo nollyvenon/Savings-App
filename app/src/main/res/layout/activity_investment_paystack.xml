@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.johnnyup.erssavingsapp.InvestmentPaystackActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="4dp">
+
+        <ImageButton
+            android:id="@+id/open_drawer"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@color/greyLight"
+            android:onClick="goBack"
+            android:src="@drawable/icon_back" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/open_drawer"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="10dp"
+            android:text="@string/fund_investment"
+            android:textSize="18sp"
+            style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
+            android:textColor="@color/darkBlue" />
+
+    </RelativeLayout>
+
+    <WebView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/webView" />
+
+</LinearLayout>

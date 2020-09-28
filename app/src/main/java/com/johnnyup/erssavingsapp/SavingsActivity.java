@@ -1,13 +1,18 @@
 package com.johnnyup.erssavingsapp;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,7 +20,6 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.johnnyup.erssavingsapp.helper.DatabaseHandler;
 import com.johnnyup.erssavingsapp.helper.Functions;
-import com.johnnyup.erssavingsapp.helper.SessionManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,11 +32,17 @@ import java.util.List;
 import java.util.Map;
 
 import adapter.SavingsAdapter;
+import model.Customer;
 
 public class SavingsActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
+    String selectedCustomer = "";
+    List<String> customerList = new ArrayList<>();
+    List<Customer> fullCustomerList = new ArrayList<>();
     List<model.Savings> savingsModel = new ArrayList<>();
+
+    EditText savingsLabel, savingsAmount;
 
     private HashMap<String, String> user = new HashMap<>();
 
@@ -46,8 +56,7 @@ public class SavingsActivity extends AppCompatActivity {
         startNewSaving.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SavingsActivity.this, AddSavingActivity.class);
-                startActivity(intent);
+                addSaving();
             }
         });
 
@@ -62,7 +71,7 @@ public class SavingsActivity extends AppCompatActivity {
     private void fetchSavings(final String userID) {
         showDialog();
         StringRequest strReq = new StringRequest(Request.Method.POST,
-                Functions.SAVINGS_URL, response -> {
+                Functions.getUrl(Functions.SAVINGS_URL, getApplicationContext()), response -> {
             hideDialog();
 
             try {
@@ -71,8 +80,8 @@ public class SavingsActivity extends AppCompatActivity {
 
                 // Check for error node in json
                 if (res.length() > 0) {
-                    model.Savings savings = new model.Savings();
                     for (int i = 0; i < res.length(); i++) {
+                        model.Savings savings = new model.Savings();
                         JSONObject o = res.getJSONObject(i);
                         savings.setAmount(o.getString("amount"));
                         savings.setDate_end(o.getString("date_end"));
@@ -80,6 +89,7 @@ public class SavingsActivity extends AppCompatActivity {
                         savings.setStatus(o.getString("status"));
                         savings.setSavings(o.getString("savings"));
                         savings.setBalance(o.getString("balance"));
+                        savings.setId(Integer.parseInt(o.getString("id")));
                         savingsModel.add(savings);
                     }
                     SavingsAdapter adapter = new SavingsAdapter(SavingsActivity.this, savingsModel);
@@ -113,6 +123,51 @@ public class SavingsActivity extends AppCompatActivity {
 
     public void goBack(View view) {
         finish();
+    }
+
+    public void addSaving() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        assert inflater != null;
+        View layout = inflater.inflate(R.layout.item_add_savings, findViewById(R.id.add_saving_root));
+
+        savingsLabel = layout.findViewById(R.id.label);
+        savingsAmount = layout.findViewById(R.id.amount);
+
+        Spinner customerSpinner = layout.findViewById(R.id.customer);
+        ArrayAdapter<String> customerAdapter = new ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, customerList);
+        customerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        customerSpinner.setAdapter(customerAdapter);
+
+        customerSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedCustomer = parent.getItemAtPosition(position).toString();
+                for(Customer c : fullCustomerList) {
+                    if(c.getUsername().equalsIgnoreCase(selectedCustomer)) {
+                        selectedCustomer = c.getId();
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                selectedCustomer = parent.getItemAtPosition(0).toString();
+            }
+        });
+
+        builder.setView(layout);
+        builder.setPositiveButton(R.string.start, (dialog, id) -> {
+            String label = savingsLabel.getText().toString();
+            String amount = savingsAmount.getText().toString();
+            DatabaseHandler db = new DatabaseHandler(SavingsActivity.this);
+            user = db.getUserDetails();
+            Functions.submitSavings(SavingsActivity.this, label, amount, selectedCustomer, user.get("uid"));
+        })
+                .setNegativeButton("Close", (dialog, id) -> dialog.cancel());
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     private void showDialog() {
