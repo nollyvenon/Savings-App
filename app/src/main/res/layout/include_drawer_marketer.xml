@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/drawer_my_customers"
+        style="@style/TextAppearance.AppCompat.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/my_customers"
+        android:textColor="@color/colorPrimaryLight"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/drawer_customer_savings"
+        style="@style/TextAppearance.AppCompat.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/customer_savings"
+        android:textColor="@color/colorPrimaryLight"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/drawer_customer_investments"
+        style="@style/TextAppearance.AppCompat.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/customer_investments"
+        android:textColor="@color/colorPrimaryLight"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/drawer_transaction_history"
+        style="@style/TextAppearance.AppCompat.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/my_transaction_history"
+        android:textColor="@color/colorPrimaryLight"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/drawer_my_earnings"
+        style="@style/TextAppearance.AppCompat.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/my_earnings"
+        android:textColor="@color/colorPrimaryLight"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/drawer_my_profile"
+        style="@style/TextAppearance.AppCompat.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/my_profile"
+        android:textColor="@color/colorPrimaryLight"
+        android:textSize="14sp" />
+
+</LinearLayout>

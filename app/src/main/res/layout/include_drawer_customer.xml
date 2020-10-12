@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/drawer_savings"
+        style="@style/TextAppearance.AppCompat.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/savings"
+        android:textColor="@color/colorPrimaryLight"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/drawer_investment"
+        style="@style/TextAppearance.AppCompat.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/investments"
+        android:textColor="@color/colorPrimaryLight"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/drawer_interest"
+        style="@style/TextAppearance.AppCompat.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/interests"
+        android:textColor="@color/colorPrimaryLight"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/drawer_payout"
+        style="@style/TextAppearance.AppCompat.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/payouts"
+        android:textColor="@color/colorPrimaryLight"
+        android:textSize="14sp" />
+
+</LinearLayout>

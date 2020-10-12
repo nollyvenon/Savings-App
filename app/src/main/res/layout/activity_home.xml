@@ -25,8 +25,8 @@
             android:layout_marginEnd="30dp"
             android:layout_toStartOf="@id/h_profile_image"
             android:orientation="horizontal"
-            tools:ignore="RtlSymmetry"
-            android:visibility="gone">
+            android:visibility="gone"
+            tools:ignore="RtlSymmetry">
 
             <ImageButton
                 android:id="@+id/notification"
@@ -58,9 +58,11 @@
     </RelativeLayout>
 
     <TableLayout
+        android:id="@+id/top_menu_wrap"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
+        android:layout_marginBottom="120dp"
         android:paddingHorizontal="14dp"
         android:stretchColumns="1">
 
@@ -94,6 +96,7 @@
         </TableRow>
 
         <TableRow>
+
             <TextView
                 android:id="@+id/join_ersnetwork"
                 android:layout_width="wrap_content"
@@ -113,7 +116,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="170dp"
+        android:layout_marginTop="50dp"
         android:paddingHorizontal="14dp">
 
         <LinearLayout
@@ -128,11 +131,11 @@
                 android:weightSum="2">
 
                 <androidx.cardview.widget.CardView
-                    android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="210dp"
-                    android:layout_marginBottom="20dp"
                     android:layout_marginEnd="2dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_weight="1"
                     app:cardElevation="4dp">
 
                     <LinearLayout
@@ -187,11 +190,11 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-                    android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="210dp"
-                    android:layout_marginBottom="20dp"
                     android:layout_marginStart="2dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_weight="1"
                     app:cardElevation="4dp">
 
                     <LinearLayout
@@ -244,191 +247,149 @@
 
             </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="2">
-
-            <androidx.cardview.widget.CardView
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="210dp"
-                android:layout_marginBottom="20dp"
-                android:layout_marginEnd="2dp"
-                app:cardElevation="4dp">
-
-                <LinearLayout
-                    android:id="@+id/Savings_wrap"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/orange"
-                    android:paddingVertical="40dp">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="130dp"
-                        android:background="@color/white"
-                        android:paddingHorizontal="5dp">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal"
-                                android:contentDescription="@string/savings"
-                                android:src="@drawable/icon_savings" />
-
-                            <TextView
-                                android:id="@+id/Savings"
-                                style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:text="@string/savings"
-                                android:textSize="18sp" />
-
-                            <TextView
-                                android:id="@+id/h_saving"
-                                style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal"
-                                android:layout_marginTop="10dp"
-                                android:textSize="16sp" />
-                        </LinearLayout>
-
-                    </RelativeLayout>
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="210dp"
-                android:layout_marginBottom="20dp"
-                android:layout_marginStart="2dp"
-                app:cardElevation="4dp">
-
-                <LinearLayout
-                    android:id="@+id/investment_wrap"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/green"
-                    android:paddingVertical="40dp">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="130dp"
-                        android:background="@color/white"
-                        android:paddingHorizontal="5dp">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal"
-                                android:contentDescription="@string/investments"
-                                android:src="@drawable/icon_investment" />
-
-                            <TextView
-                                android:id="@+id/investments"
-                                style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:text="@string/investments"
-                                android:textSize="18sp" />
-
-                            <TextView
-                                android:id="@+id/h_investment"
-                                style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal"
-                                android:layout_marginTop="10dp"
-                                android:textSize="16sp" />
-                        </LinearLayout>
-
-                    </RelativeLayout>
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/payouts_wrap"
+            <LinearLayout
+                android:id="@+id/Savings_investment_wrap"
                 android:layout_width="match_parent"
-                android:layout_height="210dp"
-                android:layout_marginBottom="20dp"
-                app:cardElevation="4dp">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/orange"
-                    android:paddingVertical="40dp">
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="210dp"
+                    android:layout_marginEnd="2dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_weight="1"
+                    app:cardElevation="4dp">
 
-                    <RelativeLayout
+                    <LinearLayout
+                        android:id="@+id/Savings_wrap"
                         android:layout_width="match_parent"
-                        android:layout_height="130dp"
-                        android:background="@color/white"
-                        android:paddingHorizontal="50dp">
+                        android:layout_height="match_parent"
+                        android:background="@color/orange"
+                        android:paddingVertical="40dp">
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
-                            android:layout_centerVertical="true"
-                            android:orientation="vertical">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="130dp"
+                            android:background="@color/white"
+                            android:paddingHorizontal="5dp">
 
-                            <TextView
-                                android:id="@+id/payouts"
-                                style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:text="@string/payouts"
-                                android:textSize="18sp" />
+                                android:layout_centerInParent="true"
+                                android:orientation="vertical">
 
-                            <TextView
-                                android:id="@+id/h_payout"
-                                style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_horizontal"
+                                    android:contentDescription="@string/savings"
+                                    android:src="@drawable/icon_savings" />
+
+                                <TextView
+                                    android:id="@+id/Savings"
+                                    style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:text="@string/savings"
+                                    android:textSize="18sp" />
+
+                                <TextView
+                                    android:id="@+id/h_saving"
+                                    style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_horizontal"
+                                    android:layout_marginTop="10dp"
+                                    android:textSize="16sp" />
+                            </LinearLayout>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="210dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_weight="1"
+                    app:cardElevation="4dp">
+
+                    <LinearLayout
+                        android:id="@+id/investment_wrap"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/green"
+                        android:paddingVertical="40dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="130dp"
+                            android:background="@color/white"
+                            android:paddingHorizontal="5dp">
+
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal"
-                                android:layout_marginTop="10dp"
-                                android:textSize="16sp" />
-                        </LinearLayout>
+                                android:layout_centerInParent="true"
+                                android:orientation="vertical">
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_alignParentEnd="true">
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_horizontal"
+                                    android:contentDescription="@string/investments"
+                                    android:src="@drawable/icon_investment" />
 
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:contentDescription="@string/payouts"
-                                android:src="@drawable/icon_payouts" />
-                        </LinearLayout>
+                                <TextView
+                                    android:id="@+id/investments"
+                                    style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:text="@string/investments"
+                                    android:textSize="18sp" />
 
-                    </RelativeLayout>
+                                <TextView
+                                    android:id="@+id/h_investment"
+                                    style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_horizontal"
+                                    android:layout_marginTop="10dp"
+                                    android:textSize="16sp" />
+                            </LinearLayout>
 
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+                        </RelativeLayout>
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+            <include layout="@layout/item_payout" />
+
+            <LinearLayout
+                android:id="@+id/marketer_wrap"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include layout="@layout/item_marketer_investment" />
+
+                <include
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    layout="@layout/item_marketer_savings" />
+
+                <include layout="@layout/item_recent_activity" />
+
+            </LinearLayout>
 
         </LinearLayout>
 

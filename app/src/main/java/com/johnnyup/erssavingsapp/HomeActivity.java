@@ -23,6 +23,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -48,9 +49,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import adapter.PayoutAdapter;
+import adapter.RecentActivityAdapter;
 import de.hdodenhof.circleimageview.CircleImageView;
 import model.Customer;
+import model.Payout;
+import model.RecentActivity;
 
+import static com.johnnyup.erssavingsapp.helper.Functions.MARKETER_PROFILE_IMG_LINK;
+import static com.johnnyup.erssavingsapp.helper.Functions.MARKETER_URL;
 import static com.johnnyup.erssavingsapp.helper.Functions.PROFILE_IMG_LINK;
 import static com.johnnyup.erssavingsapp.helper.Functions.USER_URL;
 
@@ -66,6 +73,7 @@ public class HomeActivity extends AppCompatActivity {
     EditText savingsLabel, savingsAmount;
     String selectedDuration;
     String selectedCustomer = "";
+    List<RecentActivity> recentActivities = new ArrayList<>();
     List<String> customerList = new ArrayList<>();
     List<Customer> fullCustomerList = new ArrayList<>();
     List<String> durationList = new ArrayList<>();
@@ -107,10 +115,15 @@ public class HomeActivity extends AppCompatActivity {
         // Fetching user details from database
         String name = user.get("name");
         String email = user.get("email");
-        String agent = user.get("agent");
+        String userType = user.get("type");
 
         Functions.getCustomers(customerList, fullCustomerList, user.get("uid"), getApplicationContext());
-        getHomeDetails(user.get("uid"));
+
+        if (userType.equalsIgnoreCase("customer")) {
+            getHomeDetails(user.get("uid"));
+        } else {
+            getHomeDetailsForMarketer(user.get("uid"));
+        }
 
         // Displaying the user details on the screen
         txtName.setText(name);
@@ -126,41 +139,48 @@ public class HomeActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        savingsWrap.setOnClickListener(v -> {
-            Intent intent = new Intent(HomeActivity.this, SavingsActivity.class);
-            startActivity(intent);
-        });
+        if (userType.equalsIgnoreCase("customer")) {
+            savingsWrap.setOnClickListener(v -> {
+                Intent intent = new Intent(HomeActivity.this, SavingsActivity.class);
+                startActivity(intent);
+            });
 
-        investmentWrap.setOnClickListener(v -> {
-            Intent intent = new Intent(HomeActivity.this, InvestmentActivity.class);
-            startActivity(intent);
-        });
+            investmentWrap.setOnClickListener(v -> {
+                Intent intent = new Intent(HomeActivity.this, InvestmentActivity.class);
+                startActivity(intent);
+            });
 
-        findViewById(R.id.drawer_savings).setOnClickListener(v -> {
-            Intent intent = new Intent(HomeActivity.this, SavingsActivity.class);
-            startActivity(intent);
-        });
+            findViewById(R.id.payouts_wrap).setOnClickListener(v -> {
+                Intent intent = new Intent(HomeActivity.this, PayoutActivity.class);
+                startActivity(intent);
+            });
 
-        findViewById(R.id.drawer_investment).setOnClickListener(v -> {
-            Intent intent = new Intent(HomeActivity.this, InvestmentActivity.class);
-            startActivity(intent);
-        });
-        ;
+            findViewById(R.id.drawer_savings).setOnClickListener(v -> {
+                Intent intent = new Intent(HomeActivity.this, SavingsActivity.class);
+                startActivity(intent);
+            });
 
-        findViewById(R.id.drawer_payout).setOnClickListener(v -> {
-            Intent intent = new Intent(HomeActivity.this, PayoutActivity.class);
-            startActivity(intent);
-        });
+            findViewById(R.id.drawer_investment).setOnClickListener(v -> {
+                Intent intent = new Intent(HomeActivity.this, InvestmentActivity.class);
+                startActivity(intent);
+            });
 
-        findViewById(R.id.payouts_wrap).setOnClickListener(v -> {
-            Intent intent = new Intent(HomeActivity.this, PayoutActivity.class);
-            startActivity(intent);
-        });
+            findViewById(R.id.drawer_payout).setOnClickListener(v -> {
+                Intent intent = new Intent(HomeActivity.this, PayoutActivity.class);
+                startActivity(intent);
+            });
 
-        findViewById(R.id.drawer_interest).setOnClickListener(v -> {
-            Intent intent = new Intent(HomeActivity.this, InterestActivity.class);
-            startActivity(intent);
-        });
+            findViewById(R.id.drawer_interest).setOnClickListener(v -> {
+                Intent intent = new Intent(HomeActivity.this, InterestActivity.class);
+                startActivity(intent);
+            });
+            findViewById(R.id.marketer_drawer).setVisibility(View.GONE);
+        } else {
+            findViewById(R.id.Savings_investment_wrap).setVisibility(View.GONE);
+            findViewById(R.id.payouts_wrap).setVisibility(View.GONE);
+            findViewById(R.id.top_menu_wrap).setVisibility(View.GONE);
+            findViewById(R.id.customer_drawer).setVisibility(View.GONE);
+        }
 
         init();
     }
@@ -244,7 +264,7 @@ public class HomeActivity extends AppCompatActivity {
                 JSONObject c = customer.getJSONObject(0);
 
                 TextView agent = findViewById(R.id.h_username);
-                agent.setText(String.format("%s%s", c.getString("fname"), c.getString("lname")));
+                agent.setText(String.format("%s %s", c.getString("fname"), c.getString("lname")));
 
                 TextView contact = findViewById(R.id.h_contact);
                 contact.setText(c.getString("phone"));
@@ -268,6 +288,80 @@ public class HomeActivity extends AppCompatActivity {
                 CircleImageView dProfileImg = findViewById(R.id.d_profile_image);
                 Glide.with(this).load(PROFILE_IMG_LINK +
                         c.getString("cname") + "/" + c.getString("cimage")).into(dProfileImg);
+
+            } catch (JSONException e) {
+                //Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }, error -> {
+            //Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("user", userID);
+                return params;
+            }
+        };
+
+        // Adding request to request queue
+        MyApplication.getInstance().addToRequestQueue(strReq, "customer_req");
+    }
+
+    public void getHomeDetailsForMarketer(String userID) {
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                Functions.getUrl(MARKETER_URL, getApplicationContext()), response -> {
+            try {
+                NumberFormat format = new DecimalFormat("#,###");
+                JSONObject jObj = new JSONObject(response);
+                JSONArray recentActivityAry = jObj.getJSONArray("recent_activity");
+
+                JSONObject user = jObj.getJSONObject("user");
+                TextView agent = findViewById(R.id.h_username);
+                agent.setText(String.format("%s %s", user.getString("fname"), user.getString("lname")));
+
+                TextView contact = findViewById(R.id.h_contact);
+                contact.setText(user.getString("phone"));
+
+                CircleImageView profileImg = findViewById(R.id.h_profile_image);
+                Glide.with(this).load(MARKETER_PROFILE_IMG_LINK + user.getString("image")).into(profileImg);
+
+                CircleImageView dProfileImg = findViewById(R.id.d_profile_image);
+                Glide.with(this).load(MARKETER_PROFILE_IMG_LINK + user.getString("image")).into(dProfileImg);
+
+                TextView wallet = findViewById(R.id.h_wallet);
+                wallet.setText("N"+format.format(Double.parseDouble(jObj.getString("wallet"))));
+
+                TextView savingsTargetAmount = findViewById(R.id.m_sav_target_amount);
+                TextView savingsMetAmount = findViewById(R.id.m_sav_target_met_amount);
+                TextView savingsPending = findViewById(R.id.m_sav_target_pending_amount);
+                savingsTargetAmount.setText("N"+format.format(Double.parseDouble(jObj.getString("savings_target"))));
+                savingsMetAmount.setText("N"+format.format(Double.parseDouble(jObj.getString("savings_target_met"))));
+                savingsPending.setText("N"+format.format(Double.parseDouble(jObj.getString("savings_target_pending"))));
+
+                TextView investmentTargetAmount = findViewById(R.id.m_inv_target_amount);
+                TextView investmentMetAmount = findViewById(R.id.m_inv_target_met_amount);
+                TextView investmentPendingAmount = findViewById(R.id.m_inv_target_pending_amount);
+                investmentTargetAmount.setText("N"+format.format(Double.parseDouble(jObj.getString("investment_target"))));
+                investmentMetAmount.setText("N"+format.format(Double.parseDouble(jObj.getString("investment_target_met"))));
+                investmentPendingAmount.setText("N"+format.format(Double.parseDouble(jObj.getString("investment_target_pending"))));
+
+                if (recentActivityAry.length() > 0) {
+                    for (int i = 0; i < recentActivityAry.length(); i++) {
+                        RecentActivity recentActivity = new RecentActivity();
+                        JSONObject o = recentActivityAry.getJSONObject(i);
+                        recentActivity.setAmount(o.getString("amount"));
+                        recentActivity.setDate(o.getString("date"));
+                        recentActivity.setDescription(o.getString("description"));
+                        recentActivity.setUsername(o.getString("username"));
+                        recentActivities.add(recentActivity);
+                    }
+
+                    RecentActivityAdapter adapter = new RecentActivityAdapter(HomeActivity.this, recentActivities);
+                    GridLayoutManager manager = new GridLayoutManager(HomeActivity.this, 1);
+                    RecyclerView recyclerView = findViewById(R.id.recent_activities_recycler_view);
+                    recyclerView.setLayoutManager(manager);
+                    recyclerView.setAdapter(adapter);
+                }
 
             } catch (JSONException e) {
                 //Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
@@ -426,7 +520,7 @@ public class HomeActivity extends AppCompatActivity {
         session.setLogin(false);
         Functions logout = new Functions();
         logout.logoutUser(HomeActivity.this);
-        Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+        Intent intent = new Intent(HomeActivity.this, EntryActivity.class);
         startActivity(intent);
         finish();
     }

@@ -33,10 +33,11 @@ public class Functions {
     //Main URL
     private static String MAIN_URL = "https://www.savings.ersnets.net/mcalls/";
     public static String PROFILE_IMG_LINK = "https://www.savings.ersnets.net/profile-img/";
+    public static String MARKETER_PROFILE_IMG_LINK = "https://www.savings.ersnets.net/marketers/profile-img/marketer/";
 
     // Login URL
     public static String LOGIN_URL = MAIN_URL + "login";
-    public static String LOGIN_AGENT_URL = "login/agent";
+    public static String LOGIN_MARKETER_URL = MAIN_URL + "login/marketer";
 
     // Register URL
     public static String REGISTER_URL = "register.php";
@@ -52,6 +53,8 @@ public class Functions {
     public static String USER_URL = "user";
     public static String USER_PROFILE_URL = "user/getProfile";
     public static String USER_UPDATE_PROFILE_URL = "user/updateCustomer";
+    public static String USER_FETCH_CUSTOMERS_URL = "user/getCustomers";
+    public static String MARKETER_URL = "user/getHomeDataForMarketer";
 
     // savings
     public static String SAVINGS_URL = "savings";

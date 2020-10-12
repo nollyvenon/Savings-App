@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.johnnyup.erssavingsapp.EntryActivity"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="20dp">
+
+        <ImageView
+            android:layout_above="@id/customer"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginBottom="10dp"
+            android:src="@mipmap/logo" />
+
+        <Button
+            android:id="@+id/customer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:paddingVertical="10dp"
+            app:backgroundTint="@color/darkBlue"
+            android:text="@string/login_as_customer"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/agent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/customer"
+            android:layout_centerInParent="true"
+            android:paddingVertical="10dp"
+            android:layout_marginTop="20dp"
+            app:backgroundTint="@color/darkBlue"
+            android:text="@string/login_as_agent"
+            android:textColor="@color/white" />
+
+    </RelativeLayout>
+
+</LinearLayout>

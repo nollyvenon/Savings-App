@@ -50,7 +50,7 @@
     <string name="withdraw">Withdraw</string>
     <string name="fund_investment">Fund Investment</string>
     <string name="login_as_customer">Login As Customer</string>
-    <string name="login_as_agent">Login As Agent</string>
+    <string name="login_as_agent">Login As Marketer</string>
     <string name="forgot_password">Forgot Password</string>
     <string name="go_to_register">Go to Register</string>
     <string name="last_name">Last Name</string>
@@ -61,4 +61,17 @@
     <string name="address">Address</string>
     <string name="profile">Profile</string>
     <string name="update_profile">Update Profile</string>
+    <string name="investments_target_met">Target Met</string>
+    <string name="investments_target_pending">Target Pending</string>
+    <string name="investments_target">Target</string>
+    <string name="savings_target_pending">Target Pending</string>
+    <string name="savings_target_met">Target Met</string>
+    <string name="savings_target">Target</string>
+    <string name="recent_activities">Recent Activities</string>
+    <string name="my_profile">My Profile</string>
+    <string name="my_earnings">My Earnings</string>
+    <string name="my_transaction_history">My Transaction History</string>
+    <string name="customer_investments">Customer Investments</string>
+    <string name="customer_savings">Customer Savings</string>
+    <string name="my_customers">My Customers</string>
 </resources>

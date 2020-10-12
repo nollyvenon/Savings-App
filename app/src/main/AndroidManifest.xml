@@ -15,7 +15,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name="com.johnnyup.erssavingsapp.ProfileActivity"></activity>
+        <activity android:name="com.johnnyup.erssavingsapp.CustomerActivity"></activity>
+        <activity android:name="com.johnnyup.erssavingsapp.EntryActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.johnnyup.erssavingsapp.MarketerLoginActivity" />
         <activity android:name="com.johnnyup.erssavingsapp.InvestmentPaystackActivity" />
         <activity android:name="com.johnnyup.erssavingsapp.PaystackActivity" />
         <activity android:name="com.johnnyup.erssavingsapp.InterestActivity" />
@@ -23,15 +31,8 @@
         <activity android:name="com.johnnyup.erssavingsapp.InvestmentActivity" />
         <activity android:name="com.johnnyup.erssavingsapp.SavingsActivity" />
         <activity
-            android:theme="@style/splashTheme"
             android:name="com.johnnyup.erssavingsapp.LoginActivity"
-            android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:label="@string/app_name" />
         <activity
             android:name="com.johnnyup.erssavingsapp.HomeActivity"
             android:label="@string/app_name"
