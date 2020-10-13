@@ -180,6 +180,14 @@ public class HomeActivity extends AppCompatActivity {
             findViewById(R.id.payouts_wrap).setVisibility(View.GONE);
             findViewById(R.id.top_menu_wrap).setVisibility(View.GONE);
             findViewById(R.id.customer_drawer).setVisibility(View.GONE);
+            findViewById(R.id.drawer_my_customers).setOnClickListener(v -> {
+                Intent intent = new Intent(HomeActivity.this, CustomerActivity.class);
+                startActivity(intent);
+            });
+            findViewById(R.id.drawer_customer_savings).setOnClickListener(v -> {
+                Intent intent = new Intent(HomeActivity.this, SavingsActivity.class);
+                startActivity(intent);
+            });
         }
 
         init();

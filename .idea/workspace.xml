@@ -21,11 +21,9 @@
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/javaCompile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -201,10 +199,10 @@
       <screen x="0" y="0" width="1440" height="860" />
     </state>
     <state x="300" y="185" key="AndroidCreateResourceFileDialog/0.0.1440.860@0.0.1440.860" timestamp="1602492295239" />
-    <state x="603" y="274" key="AndroidCreateXmlResourceDialog" timestamp="1602256395494">
+    <state x="603" y="274" key="AndroidCreateXmlResourceDialog" timestamp="1602508900358">
       <screen x="0" y="0" width="1440" height="860" />
     </state>
-    <state x="603" y="274" key="AndroidCreateXmlResourceDialog/0.0.1440.860@0.0.1440.860" timestamp="1602256395494" />
+    <state x="603" y="274" key="AndroidCreateXmlResourceDialog/0.0.1440.860@0.0.1440.860" timestamp="1602508900358" />
     <state x="321" y="24" key="CommitChangelistDialog2" timestamp="1601292199668">
       <screen x="0" y="0" width="1440" height="860" />
     </state>
@@ -213,22 +211,22 @@
       <screen x="0" y="0" width="1440" height="860" />
     </state>
     <state x="500" y="156" key="FileChooserDialogImpl/0.0.1440.860@0.0.1440.860" timestamp="1602496804225" />
-    <state width="1380" height="217" key="GridCell.Tab.0.bottom" timestamp="1602252701270">
+    <state width="1380" height="217" key="GridCell.Tab.0.bottom" timestamp="1602591856100">
       <screen x="0" y="0" width="1440" height="860" />
     </state>
-    <state width="1380" height="217" key="GridCell.Tab.0.bottom/0.0.1440.860@0.0.1440.860" timestamp="1602252701270" />
-    <state width="1380" height="217" key="GridCell.Tab.0.center" timestamp="1602252701269">
+    <state width="1380" height="217" key="GridCell.Tab.0.bottom/0.0.1440.860@0.0.1440.860" timestamp="1602591856100" />
+    <state width="1380" height="217" key="GridCell.Tab.0.center" timestamp="1602591856099">
       <screen x="0" y="0" width="1440" height="860" />
     </state>
-    <state width="1380" height="217" key="GridCell.Tab.0.center/0.0.1440.860@0.0.1440.860" timestamp="1602252701269" />
-    <state width="1380" height="217" key="GridCell.Tab.0.left" timestamp="1602252701269">
+    <state width="1380" height="217" key="GridCell.Tab.0.center/0.0.1440.860@0.0.1440.860" timestamp="1602591856099" />
+    <state width="1380" height="217" key="GridCell.Tab.0.left" timestamp="1602591856099">
       <screen x="0" y="0" width="1440" height="860" />
     </state>
-    <state width="1380" height="217" key="GridCell.Tab.0.left/0.0.1440.860@0.0.1440.860" timestamp="1602252701269" />
-    <state width="1380" height="217" key="GridCell.Tab.0.right" timestamp="1602252701269">
+    <state width="1380" height="217" key="GridCell.Tab.0.left/0.0.1440.860@0.0.1440.860" timestamp="1602591856099" />
+    <state width="1380" height="217" key="GridCell.Tab.0.right" timestamp="1602591856100">
       <screen x="0" y="0" width="1440" height="860" />
     </state>
-    <state width="1380" height="217" key="GridCell.Tab.0.right/0.0.1440.860@0.0.1440.860" timestamp="1602252701269" />
+    <state width="1380" height="217" key="GridCell.Tab.0.right/0.0.1440.860@0.0.1440.860" timestamp="1602591856100" />
     <state x="221" y="72" key="SettingsEditor" timestamp="1600160170234">
       <screen x="0" y="0" width="1440" height="860" />
     </state>
@@ -237,9 +235,13 @@
       <screen x="0" y="0" width="1440" height="860" />
     </state>
     <state x="536" y="208" key="chooseDestDirectoryDialog/0.0.1440.860@0.0.1440.860" timestamp="1601977240759" />
-    <state x="416" y="254" key="com.intellij.ide.util.TipDialog" timestamp="1602489471620">
+    <state x="416" y="254" key="com.intellij.ide.util.TipDialog" timestamp="1602579761378">
       <screen x="0" y="0" width="1440" height="860" />
     </state>
-    <state x="416" y="254" key="com.intellij.ide.util.TipDialog/0.0.1440.860@0.0.1440.860" timestamp="1602489471620" />
+    <state x="416" y="254" key="com.intellij.ide.util.TipDialog/0.0.1440.860@0.0.1440.860" timestamp="1602579761378" />
+    <state x="376" y="197" key="run.anything.popup" timestamp="1602501242656">
+      <screen x="0" y="0" width="1440" height="860" />
+    </state>
+    <state x="376" y="197" key="run.anything.popup/0.0.1440.860@0.0.1440.860" timestamp="1602501242656" />
   </component>
 </project>

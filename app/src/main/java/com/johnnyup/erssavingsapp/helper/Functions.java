@@ -54,6 +54,7 @@ public class Functions {
     public static String USER_PROFILE_URL = "user/getProfile";
     public static String USER_UPDATE_PROFILE_URL = "user/updateCustomer";
     public static String USER_FETCH_CUSTOMERS_URL = "user/getCustomers";
+    public static String USER_ADD_CUSTOMER_URL = "user/registerCustomer";
     public static String MARKETER_URL = "user/getHomeDataForMarketer";
 
     // savings

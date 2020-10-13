@@ -57,7 +57,6 @@
     <string name="middle_name">Middle Name</string>
     <string name="first_name">First Name</string>
     <string name="email">Email</string>
-    <string name="phone_number">Phone Number</string>
     <string name="address">Address</string>
     <string name="profile">Profile</string>
     <string name="update_profile">Update Profile</string>
@@ -74,4 +73,14 @@
     <string name="customer_investments">Customer Investments</string>
     <string name="customer_savings">Customer Savings</string>
     <string name="my_customers">My Customers</string>
+    <string name="customers">Customers</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="username">Username</string>
+    <string name="name_email">Name/Email</string>
+    <string name="mobile">Mobile</string>
+    <string name="add_customer">Add Customer</string>
+    <string name="bank">Bank</string>
+    <string name="account_name">Account Name</string>
+    <string name="account_number">Account Number</string>
+    <string name="password">Password</string>
 </resources>

@@ -41,7 +41,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.user.setText(data.get(position).getFname() + data.get(position).getLname());
+        holder.user.setText(data.get(position).getFname() +" "+ data.get(position).getLname());
         holder.username.setText(data.get(position).getUsername());
         holder.email.setText(data.get(position).getEmail());
         holder.phone.setText(data.get(position).getPhone());

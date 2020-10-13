@@ -15,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name="com.johnnyup.erssavingsapp.CustomerActivity"></activity>
+        <activity android:name="com.johnnyup.erssavingsapp.CustomerRegistrationActivity"></activity>
+        <activity android:name="com.johnnyup.erssavingsapp.CustomerActivity" />
         <activity android:name="com.johnnyup.erssavingsapp.EntryActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

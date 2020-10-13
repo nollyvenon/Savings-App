@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,8 +28,8 @@ import model.Investment;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    TextView firstName, lastName, middleName, phone, address, email;
-    TextView kfirstName, klastName, kphone, kaddress, kemail;
+    EditText firstName, lastName, middleName, phone, address, email;
+    EditText kfirstName, klastName, kphone, kaddress, kemail;
 
     private HashMap<String, String> user = new HashMap<>();
     @Override

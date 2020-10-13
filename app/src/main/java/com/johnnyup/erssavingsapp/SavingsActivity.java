@@ -62,13 +62,14 @@ public class SavingsActivity extends AppCompatActivity {
 
         DatabaseHandler db = new DatabaseHandler(SavingsActivity.this);
         user = db.getUserDetails();
-        fetchSavings(user.get("uid"));
+        String userType = user.get("type");
+        fetchSavings(user.get("uid"), userType);
 
         // Hide Keyboard
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
-    private void fetchSavings(final String userID) {
+    private void fetchSavings(final String userID, String userType) {
         showDialog();
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 Functions.getUrl(Functions.SAVINGS_URL, getApplicationContext()), response -> {
@@ -113,6 +114,7 @@ public class SavingsActivity extends AppCompatActivity {
                 // Posting parameters to erssavingsapp url
                 Map<String, String> params = new HashMap<>();
                 params.put("user", userID);
+                params.put("type", userType);
                 return params;
             }
         };
