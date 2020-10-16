@@ -108,6 +108,26 @@
             android:layout_height="1dp"
             android:background="#FF909090" />
 
+        <TableRow
+            android:visibility="gone"
+            android:id="@+id/row_end_date"
+            android:paddingVertical="10dp">
+
+            <TextView
+                android:id="@+id/header_title_end_date"
+                style="@style/MaterialAlertDialog.MaterialComponents.Title.Text" />
+
+            <TextView
+                android:id="@+id/header_value_end_date"
+                android:gravity="end" />
+        </TableRow>
+
+        <View
+            android:visibility="gone"
+            android:id="@+id/d_end_date"
+            android:layout_height="1dp"
+            android:background="#FF909090" />
+
         <TableRow android:paddingVertical="10dp">
             <TextView
                 style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
@@ -119,10 +139,13 @@
         </TableRow>
 
         <View
+            android:id="@+id/d_status"
             android:layout_height="1dp"
             android:background="#FF909090" />
 
-        <TableRow android:paddingVertical="10dp">
+        <TableRow
+            android:id="@+id/row_withdraw_btn"
+            android:paddingVertical="10dp">
             <Button
                 android:id="@+id/withdraw"
                 android:layout_weight="1"

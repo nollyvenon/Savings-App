@@ -1,5 +1,6 @@
 package com.johnnyup.erssavingsapp;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -30,6 +31,9 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.signature.ObjectKey;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONArray;
@@ -78,6 +82,7 @@ public class HomeActivity extends AppCompatActivity {
     List<Customer> fullCustomerList = new ArrayList<>();
     List<String> durationList = new ArrayList<>();
     private HashMap<String, String> user = new HashMap<>();
+    final static int RELOAD_CODE = 112;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,6 +126,7 @@ public class HomeActivity extends AppCompatActivity {
 
         if (userType.equalsIgnoreCase("customer")) {
             getHomeDetails(user.get("uid"));
+            findViewById(R.id.marketer_wrap).setVisibility(View.GONE);
         } else {
             getHomeDetailsForMarketer(user.get("uid"));
         }
@@ -133,11 +139,6 @@ public class HomeActivity extends AppCompatActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         openDrawer.setOnClickListener(v -> drawer.openDrawer(GravityCompat.START));
-
-        findViewById(R.id.h_profile_image).setOnClickListener(v -> {
-            Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
-            startActivity(intent);
-        });
 
         if (userType.equalsIgnoreCase("customer")) {
             savingsWrap.setOnClickListener(v -> {
@@ -174,6 +175,11 @@ public class HomeActivity extends AppCompatActivity {
                 Intent intent = new Intent(HomeActivity.this, InterestActivity.class);
                 startActivity(intent);
             });
+
+            findViewById(R.id.h_profile_image).setOnClickListener(v -> {
+                Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
+                startActivityForResult(intent, RELOAD_CODE);
+            });
             findViewById(R.id.marketer_drawer).setVisibility(View.GONE);
         } else {
             findViewById(R.id.Savings_investment_wrap).setVisibility(View.GONE);
@@ -184,9 +190,35 @@ public class HomeActivity extends AppCompatActivity {
                 Intent intent = new Intent(HomeActivity.this, CustomerActivity.class);
                 startActivity(intent);
             });
+
             findViewById(R.id.drawer_customer_savings).setOnClickListener(v -> {
                 Intent intent = new Intent(HomeActivity.this, SavingsActivity.class);
                 startActivity(intent);
+            });
+
+            findViewById(R.id.drawer_customer_investments).setOnClickListener(v -> {
+                Intent intent = new Intent(HomeActivity.this, InvestmentActivity.class);
+                startActivity(intent);
+            });
+
+            findViewById(R.id.drawer_transaction_history).setOnClickListener(v -> {
+                Intent intent = new Intent(HomeActivity.this, AgentTransactionActivity.class);
+                startActivity(intent);
+            });
+
+            findViewById(R.id.drawer_my_earnings).setOnClickListener(v -> {
+                Intent intent = new Intent(HomeActivity.this, EarningActivity.class);
+                startActivity(intent);
+            });
+
+            findViewById(R.id.h_profile_image).setOnClickListener(v -> {
+                Intent intent = new Intent(HomeActivity.this, MarketerProfileActivity.class);
+                startActivity(intent);
+            });
+
+            findViewById(R.id.drawer_my_profile).setOnClickListener(v -> {
+                Intent intent = new Intent(HomeActivity.this, MarketerProfileActivity.class);
+                startActivityForResult(intent, RELOAD_CODE);
             });
         }
 
@@ -248,7 +280,7 @@ public class HomeActivity extends AppCompatActivity {
                     String new_pass = newPassword.getEditText().getText().toString();
 
                     if (!old_pass.isEmpty() && !new_pass.isEmpty()) {
-                        changePassword(user.get("uid"), old_pass, new_pass);
+                        changePassword(user.get("uid"), old_pass, new_pass, user.get("type"));
                         dialog.dismiss();
                     } else {
                         Toast.makeText(HomeActivity.this, "Fill all values!", Toast.LENGTH_SHORT).show();
@@ -259,6 +291,25 @@ public class HomeActivity extends AppCompatActivity {
 
             alertDialog.show();
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == Activity.RESULT_OK) {
+            // TODO Extract the data returned from the child Activity.
+            DatabaseHandler db = new DatabaseHandler(HomeActivity.this);
+            user = db.getUserDetails();
+            String userType = user.get("type");
+            if (userType.equalsIgnoreCase("customer")) {
+                getHomeDetails(user.get("uid"));
+                findViewById(R.id.marketer_wrap).setVisibility(View.GONE);
+            } else {
+                getHomeDetailsForMarketer(user.get("uid"));
+            }
+        }
+
     }
 
     public void getHomeDetails(String userID) {
@@ -290,12 +341,29 @@ public class HomeActivity extends AppCompatActivity {
                 payout.setText(format.format(Double.parseDouble(jObj.getString("payout"))));
 
                 CircleImageView profileImg = findViewById(R.id.h_profile_image);
-                Glide.with(this).load(PROFILE_IMG_LINK +
-                        c.getString("cname") + "/" + c.getString("cimage")).into(profileImg);
-
                 CircleImageView dProfileImg = findViewById(R.id.d_profile_image);
-                Glide.with(this).load(PROFILE_IMG_LINK +
-                        c.getString("cname") + "/" + c.getString("cimage")).into(dProfileImg);
+
+                Glide.with(this)
+                        .load(PROFILE_IMG_LINK +
+                                c.getString("cname") + "/" + c.getString("cimage"))
+                        .apply(new RequestOptions()
+                                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                .skipMemoryCache(true))
+                        .signature(new ObjectKey(System.currentTimeMillis()))
+                        .placeholder(R.drawable.bg_grey)
+                        .error(R.drawable.bg_grey)
+                        .into(profileImg);
+
+                Glide.with(this)
+                        .load(PROFILE_IMG_LINK +
+                                c.getString("cname") + "/" + c.getString("cimage"))
+                        .apply(new RequestOptions()
+                                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                .skipMemoryCache(true))
+                        .signature(new ObjectKey(System.currentTimeMillis()))
+                        .placeholder(R.drawable.bg_grey)
+                        .error(R.drawable.bg_grey)
+                        .into(dProfileImg);
 
             } catch (JSONException e) {
                 //Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
@@ -331,27 +399,44 @@ public class HomeActivity extends AppCompatActivity {
                 contact.setText(user.getString("phone"));
 
                 CircleImageView profileImg = findViewById(R.id.h_profile_image);
-                Glide.with(this).load(MARKETER_PROFILE_IMG_LINK + user.getString("image")).into(profileImg);
-
                 CircleImageView dProfileImg = findViewById(R.id.d_profile_image);
-                Glide.with(this).load(MARKETER_PROFILE_IMG_LINK + user.getString("image")).into(dProfileImg);
+
+                Glide.with(this)
+                        .load(MARKETER_PROFILE_IMG_LINK + user.getString("image"))
+                        .apply(new RequestOptions()
+                                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                .skipMemoryCache(true))
+                        .signature(new ObjectKey(System.currentTimeMillis()))
+                        .placeholder(R.drawable.bg_grey)
+                        .error(R.drawable.bg_grey)
+                        .into(profileImg);
+
+                Glide.with(this)
+                        .load(MARKETER_PROFILE_IMG_LINK + user.getString("image"))
+                        .apply(new RequestOptions()
+                                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                .skipMemoryCache(true))
+                        .signature(new ObjectKey(System.currentTimeMillis()))
+                        .placeholder(R.drawable.bg_grey)
+                        .error(R.drawable.bg_grey)
+                        .into(dProfileImg);
 
                 TextView wallet = findViewById(R.id.h_wallet);
-                wallet.setText("N"+format.format(Double.parseDouble(jObj.getString("wallet"))));
+                wallet.setText("N" + format.format(Double.parseDouble(jObj.getString("wallet"))));
 
                 TextView savingsTargetAmount = findViewById(R.id.m_sav_target_amount);
                 TextView savingsMetAmount = findViewById(R.id.m_sav_target_met_amount);
                 TextView savingsPending = findViewById(R.id.m_sav_target_pending_amount);
-                savingsTargetAmount.setText("N"+format.format(Double.parseDouble(jObj.getString("savings_target"))));
-                savingsMetAmount.setText("N"+format.format(Double.parseDouble(jObj.getString("savings_target_met"))));
-                savingsPending.setText("N"+format.format(Double.parseDouble(jObj.getString("savings_target_pending"))));
+                savingsTargetAmount.setText("N" + format.format(Double.parseDouble(jObj.getString("savings_target"))));
+                savingsMetAmount.setText("N" + format.format(Double.parseDouble(jObj.getString("savings_target_met"))));
+                savingsPending.setText("N" + format.format(Double.parseDouble(jObj.getString("savings_target_pending"))));
 
                 TextView investmentTargetAmount = findViewById(R.id.m_inv_target_amount);
                 TextView investmentMetAmount = findViewById(R.id.m_inv_target_met_amount);
                 TextView investmentPendingAmount = findViewById(R.id.m_inv_target_pending_amount);
-                investmentTargetAmount.setText("N"+format.format(Double.parseDouble(jObj.getString("investment_target"))));
-                investmentMetAmount.setText("N"+format.format(Double.parseDouble(jObj.getString("investment_target_met"))));
-                investmentPendingAmount.setText("N"+format.format(Double.parseDouble(jObj.getString("investment_target_pending"))));
+                investmentTargetAmount.setText("N" + format.format(Double.parseDouble(jObj.getString("investment_target"))));
+                investmentMetAmount.setText("N" + format.format(Double.parseDouble(jObj.getString("investment_target_met"))));
+                investmentPendingAmount.setText("N" + format.format(Double.parseDouble(jObj.getString("investment_target_pending"))));
 
                 if (recentActivityAry.length() > 0) {
                     for (int i = 0; i < recentActivityAry.length(); i++) {
@@ -437,7 +522,13 @@ public class HomeActivity extends AppCompatActivity {
 
             DatabaseHandler db = new DatabaseHandler(HomeActivity.this);
             user = db.getUserDetails();
-            Functions.submitSavings(HomeActivity.this, label, amount, selectedCustomer, user.get("uid"));
+            String userType = user.get("type");
+            Functions.submitSavings(HomeActivity.this, label, amount, selectedCustomer, user.get("uid"), user.get("type"));
+            if (userType.equalsIgnoreCase("customer")) {
+                getHomeDetails(user.get("uid"));
+            } else {
+                getHomeDetailsForMarketer(user.get("uid"));
+            }
         })
                 .setNegativeButton("Close", (dialog, id) -> dialog.cancel());
         AlertDialog alertDialog = builder.create();
@@ -517,7 +608,6 @@ public class HomeActivity extends AppCompatActivity {
             intent.putExtra("customer", selectedCustomer);
             intent.putExtra("user", user.get("uid"));
             startActivity(intent);
-            //Functions.submitInvestment(HomeActivity.this, label, amount, selectedDuration, selectedCustomer, user.get("uid"));
         })
                 .setNegativeButton("Close", (dialog, id) -> dialog.cancel());
         AlertDialog alertDialog = builder.create();
@@ -533,7 +623,7 @@ public class HomeActivity extends AppCompatActivity {
         finish();
     }
 
-    private void changePassword(final String userID, final String old_pass, final String new_pass) {
+    private void changePassword(String userID, String old_pass, String new_pass, String userType) {
         // Tag used to cancel the request
         String tag_string_req = "req_reset_pass";
 
@@ -541,7 +631,7 @@ public class HomeActivity extends AppCompatActivity {
 
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 Functions.RESET_PASS_URL, response -> {
-
+            hideDialog();
             try {
                 JSONObject jObj = new JSONObject(response);
                 boolean status = jObj.getBoolean("status");
@@ -565,26 +655,17 @@ public class HomeActivity extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 // Posting parameters to erssavingsapp url
                 Map<String, String> params = new HashMap<>();
-                params.put("id", userID);
+                params.put("user", userID);
+                params.put("type", userType);
                 params.put("opassword", old_pass);
-                params.put("password", new_pass);
+                params.put("npassword", new_pass);
 
                 return params;
             }
-
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> params = new HashMap<>();
-                params.put("Content-Type", "application/x-www-form-urlencoded");
-                return params;
-            }
-
         };
 
-        // Adding request to volley request queue
-        strReq.setRetryPolicy(new DefaultRetryPolicy(5 * DefaultRetryPolicy.DEFAULT_TIMEOUT_MS, 0, 0));
-        strReq.setRetryPolicy(new DefaultRetryPolicy(0, 0, 0));
-        MyApplication.getInstance().addToRequestQueue(strReq, tag_string_req);
+        //Adding request to request queue
+        MyApplication.getInstance().addToRequestQueue(strReq, "up_password_profile_req");
     }
 
     private void showDialog() {

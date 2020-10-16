@@ -4,7 +4,8 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/greyLight">
+    android:orientation="vertical"
+    android:background="@color/background">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -15,7 +16,7 @@
             android:id="@+id/open_drawer"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@color/greyLight"
+            android:background="@color/background"
             android:src="@drawable/icon_menu" />
 
         <LinearLayout
@@ -57,62 +58,6 @@
 
     </RelativeLayout>
 
-    <TableLayout
-        android:id="@+id/top_menu_wrap"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="120dp"
-        android:paddingHorizontal="14dp"
-        android:stretchColumns="1">
-
-        <TableRow android:paddingVertical="10dp">
-
-            <TextView
-                android:id="@+id/start_new_saving"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/colorPrimaryLight"
-                android:padding="10dp"
-                android:text="@string/new_savings"
-                android:textColor="@color/colorPrimary"
-                android:textSize="14sp"
-                app:drawableStartCompat="@drawable/icon_add"
-                app:drawableTint="@color/colorPrimary" />
-
-            <TextView
-                android:id="@+id/start_new_investment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:background="@color/colorPrimaryLight"
-                android:drawablePadding="3dp"
-                android:padding="10dp"
-                android:text="@string/new_investment"
-                android:textColor="@color/colorPrimary"
-                android:textSize="14sp"
-                app:drawableStartCompat="@drawable/icon_add"
-                app:drawableTint="@color/colorPrimary" />
-        </TableRow>
-
-        <TableRow>
-
-            <TextView
-                android:id="@+id/join_ersnetwork"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/colorPrimaryLight"
-                android:drawablePadding="3dp"
-                android:padding="10dp"
-                android:text="@string/join_ersnetwork"
-                android:textColor="@color/colorPrimary"
-                android:textSize="14sp"
-                app:drawableStartCompat="@drawable/icon_add"
-                app:drawableTint="@color/colorPrimary" />
-        </TableRow>
-
-    </TableLayout>
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -123,6 +68,60 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
+            <TableLayout
+                android:id="@+id/top_menu_wrap"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:stretchColumns="1">
+
+                <TableRow android:paddingVertical="10dp">
+
+                    <TextView
+                        android:id="@+id/start_new_saving"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorPrimaryLight"
+                        android:padding="10dp"
+                        android:text="@string/new_savings"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="14sp"
+                        app:drawableStartCompat="@drawable/icon_add"
+                        app:drawableTint="@color/colorPrimary" />
+
+                    <TextView
+                        android:id="@+id/start_new_investment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:background="@color/colorPrimaryLight"
+                        android:drawablePadding="3dp"
+                        android:padding="10dp"
+                        android:text="@string/new_investment"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="14sp"
+                        app:drawableStartCompat="@drawable/icon_add"
+                        app:drawableTint="@color/colorPrimary" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/join_ersnetwork"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorPrimaryLight"
+                        android:drawablePadding="3dp"
+                        android:padding="10dp"
+                        android:text="@string/join_ersnetwork"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="14sp"
+                        app:drawableStartCompat="@drawable/icon_add"
+                        app:drawableTint="@color/colorPrimary" />
+                </TableRow>
+
+            </TableLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

@@ -55,7 +55,7 @@ public class MarketerLoginActivity extends AppCompatActivity {
         inputEmail = findViewById(R.id.edit_email);
         inputPassword = findViewById(R.id.edit_password);
         btnLogin = findViewById(R.id.button_login);
-        btnLinkToRegister = findViewById(R.id.button_register);
+        //btnLinkToRegister = findViewById(R.id.button_register);
         btnForgotPass = findViewById(R.id.button_reset);
 
         // create sqlite database
@@ -97,13 +97,13 @@ public class MarketerLoginActivity extends AppCompatActivity {
         });
 
         // Link to Register Screen
-        btnLinkToRegister.setOnClickListener(view -> {
-            Intent i = new Intent(MarketerLoginActivity.this, RegisterActivity.class);
-            startActivity(i);
-        });
+//        btnLinkToRegister.setOnClickListener(view -> {
+//            Intent i = new Intent(MarketerLoginActivity.this, RegisterActivity.class);
+//            startActivity(i);
+//        });
 
         // Forgot Password Dialog
-        btnForgotPass.setOnClickListener(v -> forgotPasswordDialog());
+        //btnForgotPass.setOnClickListener(v -> forgotPasswordDialog());
     }
 
     private void forgotPasswordDialog() {
@@ -244,7 +244,7 @@ public class MarketerLoginActivity extends AppCompatActivity {
         showDialog("Please wait...");
 
         StringRequest strReq = new StringRequest(Request.Method.POST,
-                Functions.RESET_PASS_URL, response -> {
+                Functions.FORGOT_PASS_URL, response -> {
             Log.d(TAG, "Reset Password Response: " + response);
             hideDialog();
 
@@ -270,7 +270,7 @@ public class MarketerLoginActivity extends AppCompatActivity {
                 // Posting parameters to erssavingsapp url
                 Map<String, String> params = new HashMap<>();
                 params.put("tag", "forgot_pass");
-                params.put("email", email);
+                params.put("username", email);
                 return params;
             }
 

@@ -57,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
         inputEmail = findViewById(R.id.edit_email);
         inputPassword = findViewById(R.id.edit_password);
         btnLogin = findViewById(R.id.button_login);
-        btnLinkToRegister = findViewById(R.id.button_register);
+        //btnLinkToRegister = findViewById(R.id.button_register);
         btnForgotPass = findViewById(R.id.button_reset);
 
         // create sqlite database
@@ -94,7 +94,7 @@ public class LoginActivity extends AppCompatActivity {
                     // erssavingsapp user
                     loginProcess(email, password);
                 } else {
-                    Toast.makeText(getApplicationContext(), "Email is not valid!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Username is not valid!", Toast.LENGTH_SHORT).show();
                 }
             } else {
                 // Prompt user to enter credentials
@@ -149,7 +149,7 @@ public class LoginActivity extends AppCompatActivity {
                         resetPassword(email);
                         dialog.dismiss();
                     } else {
-                        Toast.makeText(getApplicationContext(), "Email is not valid!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Username is not valid!", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Toast.makeText(getApplicationContext(), "Fill all values!", Toast.LENGTH_SHORT).show();

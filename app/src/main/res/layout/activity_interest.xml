@@ -3,7 +3,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/greyLight"
+    android:background="@color/background"
     android:orientation="vertical"
     tools:context="com.johnnyup.erssavingsapp.InterestActivity">
 
@@ -16,7 +16,8 @@
             android:id="@+id/open_drawer"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@color/greyLight"
+            android:background="@color/background"
+            android:tint="@color/darkBlue"
             android:onClick="goBack"
             android:src="@drawable/icon_back" />
 
@@ -40,7 +41,6 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="4dp"
         android:layout_marginTop="10dp"
-        android:background="@color/white"
         app:cardElevation="1dp">
 
         <TableLayout

@@ -5,7 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -53,20 +56,28 @@ public class SavingsActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.savings_recycler_view);
         TextView startNewSaving = findViewById(R.id.start_new_saving);
-        startNewSaving.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addSaving();
-            }
-        });
+        startNewSaving.setOnClickListener(v -> addSaving());
 
         DatabaseHandler db = new DatabaseHandler(SavingsActivity.this);
         user = db.getUserDetails();
-        String userType = user.get("type");
-        fetchSavings(user.get("uid"), userType);
+        fetchSavings(user.get("uid"), user.get("type"));
+
+        Functions.getCustomers(customerList, fullCustomerList, user.get("uid"), getApplicationContext());
 
         // Hide Keyboard
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == Activity.RESULT_OK) {
+            DatabaseHandler db = new DatabaseHandler(SavingsActivity.this);
+            user = db.getUserDetails();
+            String userType = user.get("type");
+            fetchSavings(user.get("uid"), userType);
+        }
     }
 
     private void fetchSavings(final String userID, String userType) {
@@ -81,9 +92,15 @@ public class SavingsActivity extends AppCompatActivity {
 
                 // Check for error node in json
                 if (res.length() > 0) {
+
                     for (int i = 0; i < res.length(); i++) {
                         model.Savings savings = new model.Savings();
                         JSONObject o = res.getJSONObject(i);
+                        if(!userType.equalsIgnoreCase("customer")) {
+                            savings.setFirstName(o.getString("lname"));
+                            savings.setLastName(o.getString("fname"));
+                            savings.setUsername(o.getString("username"));
+                        }
                         savings.setAmount(o.getString("amount"));
                         savings.setDate_end(o.getString("date_end"));
                         savings.setDate_start(o.getString("date_start"));
@@ -93,10 +110,12 @@ public class SavingsActivity extends AppCompatActivity {
                         savings.setId(Integer.parseInt(o.getString("id")));
                         savingsModel.add(savings);
                     }
+
                     SavingsAdapter adapter = new SavingsAdapter(SavingsActivity.this, savingsModel);
                     GridLayoutManager manager = new GridLayoutManager(SavingsActivity.this, 1);
                     recyclerView.setLayoutManager(manager);
                     recyclerView.setAdapter(adapter);
+
                 } else {
                     String errorMsg = jObj.getString("message");
                     Toast.makeText(getApplicationContext(), "You do not have any savings", Toast.LENGTH_LONG).show();
@@ -159,13 +178,17 @@ public class SavingsActivity extends AppCompatActivity {
             }
         });
 
+        if (!user.get("type").equalsIgnoreCase("customer")) {
+            layout.findViewById(R.id.customer_wrap).setVisibility(View.VISIBLE);
+        }
+
         builder.setView(layout);
         builder.setPositiveButton(R.string.start, (dialog, id) -> {
             String label = savingsLabel.getText().toString();
             String amount = savingsAmount.getText().toString();
             DatabaseHandler db = new DatabaseHandler(SavingsActivity.this);
             user = db.getUserDetails();
-            Functions.submitSavings(SavingsActivity.this, label, amount, selectedCustomer, user.get("uid"));
+            Functions.submitSavings(SavingsActivity.this, label, amount, selectedCustomer, user.get("uid"), user.get("type"));
         })
                 .setNegativeButton("Close", (dialog, id) -> dialog.cancel());
         AlertDialog alertDialog = builder.create();

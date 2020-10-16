@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context="com.johnnyup.erssavingsapp.EntryActivity"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -25,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:paddingVertical="10dp"
+            android:paddingVertical="15dp"
             app:backgroundTint="@color/darkBlue"
             android:text="@string/login_as_customer"
             android:textColor="@color/white" />
@@ -36,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/customer"
             android:layout_centerInParent="true"
-            android:paddingVertical="10dp"
+            android:paddingVertical="15dp"
             android:layout_marginTop="20dp"
             app:backgroundTint="@color/darkBlue"
             android:text="@string/login_as_agent"

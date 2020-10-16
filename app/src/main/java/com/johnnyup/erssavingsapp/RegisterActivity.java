@@ -3,7 +3,9 @@ package com.johnnyup.erssavingsapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,17 +29,20 @@ public class RegisterActivity extends AppCompatActivity {
     private static final String TAG = RegisterActivity.class.getSimpleName();
 
     private MaterialButton btnRegister, btnLinkToLogin;
-    private TextInputLayout inputName, inputEmail, inputPassword;
+    private TextView firstName, lastName, email, password, phoneNumber, username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        inputName = findViewById(R.id.edit_name);
-        inputEmail = findViewById(R.id.edit_email);
-        inputPassword = findViewById(R.id.edit_password);
-        btnRegister = findViewById(R.id.button_register);
+        firstName = findViewById(R.id.first_name);
+        lastName = findViewById(R.id.last_name);
+        email = findViewById(R.id.email);
+        password = findViewById(R.id.password);
+        username = findViewById(R.id.username);
+        phoneNumber = findViewById(R.id.phone_number);
+        //btnRegister = findViewById(R.id.button_register);
         btnLinkToLogin = findViewById(R.id.button_login);
 
         // Hide Keyboard
@@ -52,14 +57,18 @@ public class RegisterActivity extends AppCompatActivity {
             // Hide Keyboard
             Functions.hideSoftKeyboard(RegisterActivity.this);
 
-            String name = Objects.requireNonNull(inputName.getEditText()).getText().toString().trim();
-            String email = Objects.requireNonNull(inputEmail.getEditText()).getText().toString().trim();
-            String password = Objects.requireNonNull(inputPassword.getEditText()).getText().toString().trim();
+            String firstNameTxt = firstName.getText().toString().trim();
+            String lastNameTxt = lastName.getText().toString().trim();
+            String emailTxt = email.getText().toString().trim();
+            String passwordTxt = password.getText().toString().trim();
+            String usernameTxt = username.getText().toString().trim();
+            String phoneNumberTxt = phoneNumber.getText().toString().trim();
 
             // Check for empty data in the form
-            if (!name.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
-                if (Functions.isValidEmailAddress(email)) {
-                    registerUser(name, email, password);
+            if (!firstNameTxt.isEmpty() && !lastNameTxt.isEmpty() && !emailTxt.isEmpty() &&
+                    !passwordTxt.isEmpty() && !usernameTxt.isEmpty() && !phoneNumberTxt.isEmpty()) {
+                if (Functions.isValidEmailAddress(emailTxt)) {
+                    registerUser(firstNameTxt, lastNameTxt, emailTxt, passwordTxt, usernameTxt, phoneNumberTxt);
                 } else {
                     Toast.makeText(getApplicationContext(), "Email is not valid!", Toast.LENGTH_SHORT).show();
                 }
@@ -70,13 +79,14 @@ public class RegisterActivity extends AppCompatActivity {
 
         // Link to Register Screen
         btnLinkToLogin.setOnClickListener(view -> {
-            Intent i = new Intent(RegisterActivity.this, LoginActivity.class);
+            Intent i = new Intent(RegisterActivity.this, MarketerLoginActivity.class);
             startActivity(i);
             finish();
         });
     }
 
-    private void registerUser(final String name, final String email, final String password) {
+    private void registerUser(String firstNameTxt, String lastNameTxt, String emailTxt, String passwordTxt,
+                              String usernameTxt, String phoneNumberTxt) {
         // Tag used to cancel the request
         String tag_string_req = "req_register";
 
@@ -95,7 +105,7 @@ public class RegisterActivity extends AppCompatActivity {
                             logout.logoutUser(getApplicationContext());
 
                             Bundle b = new Bundle();
-                            b.putString("email", email);
+                            b.putString("email", emailTxt);
                             Intent i = new Intent(RegisterActivity.this, EmailVerify.class);
                             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             i.putExtras(b);
@@ -122,9 +132,12 @@ public class RegisterActivity extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 // Posting params to register url
                 Map<String, String> params = new HashMap<>();
-                params.put("name", name);
-                params.put("email", email);
-                params.put("password", password);
+                params.put("fname", firstNameTxt);
+                params.put("lname", lastNameTxt);
+                params.put("em", emailTxt);
+                params.put("password", passwordTxt);
+                params.put("username", usernameTxt);
+                params.put("phone", phoneNumberTxt);
 
                 return params;
             }
@@ -133,6 +146,10 @@ public class RegisterActivity extends AppCompatActivity {
 
         // Adding request to request queue
         MyApplication.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
+    public void goBack(View view) {
+        finish();
     }
 
     private void showDialog() {

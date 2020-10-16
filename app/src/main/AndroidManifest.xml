@@ -15,7 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name="com.johnnyup.erssavingsapp.CustomerRegistrationActivity"></activity>
+        <activity android:name="com.johnnyup.erssavingsapp.MarketerProfileActivity"></activity>
+        <activity android:name="com.johnnyup.erssavingsapp.EarningActivity" />
+        <activity android:name="com.johnnyup.erssavingsapp.AgentTransactionActivity" />
+        <activity android:name="com.johnnyup.erssavingsapp.CustomerRegistrationActivity" />
         <activity android:name="com.johnnyup.erssavingsapp.CustomerActivity" />
         <activity android:name="com.johnnyup.erssavingsapp.EntryActivity">
             <intent-filter>
@@ -31,6 +34,7 @@
         <activity android:name="com.johnnyup.erssavingsapp.PayoutActivity" />
         <activity android:name="com.johnnyup.erssavingsapp.InvestmentActivity" />
         <activity android:name="com.johnnyup.erssavingsapp.SavingsActivity" />
+        <activity android:name="com.johnnyup.erssavingsapp.ProfileActivity" />
         <activity
             android:name="com.johnnyup.erssavingsapp.LoginActivity"
             android:label="@string/app_name" />

@@ -1,91 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    android:id="@+id/m_investment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="180dp"
+    app:cardElevation="1dp">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/m_investment"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardElevation="1dp">
+        android:orientation="vertical">
 
         <TextView
             style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:textStyle="bold"
-            android:text="@string/investments" />
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="14dp"
+            android:text="@string/investments"
+            android:textStyle="bold" />
 
-    </androidx.cardview.widget.CardView>
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="14dp"
+            android:stretchColumns="1">
 
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:paddingHorizontal="14dp"
-        android:background="@color/greyLight"
-        android:stretchColumns="1">
+            <TableRow android:paddingVertical="10dp">
 
-        <TableRow android:paddingVertical="10dp">
+                <TextView
+                    style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/investments_target"
+                    android:textSize="14sp" />
 
-            <TextView
-                style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text="@string/investments_target" />
+                <TextView
+                    android:id="@+id/m_inv_target_amount"
+                    style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textAlignment="textEnd"
+                    android:textSize="14sp" />
 
-            <TextView
-                android:id="@+id/m_inv_target_amount"
-                style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:textSize="14sp"
-                android:textAlignment="textEnd" />
+            </TableRow>
 
-        </TableRow>
+            <TableRow android:paddingVertical="10dp">
 
-        <TableRow android:paddingVertical="10dp">
+                <TextView
+                    style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/investments_target_met"
+                    android:textSize="14sp" />
 
-            <TextView
-                style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text="@string/investments_target_met" />
+                <TextView
+                    android:id="@+id/m_inv_target_met_amount"
+                    style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textAlignment="textEnd"
+                    android:textSize="14sp" />
 
-            <TextView
-                android:id="@+id/m_inv_target_met_amount"
-                style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:textSize="14sp"
-                android:textAlignment="textEnd" />
+            </TableRow>
 
-        </TableRow>
+            <TableRow android:paddingVertical="10dp">
 
-        <TableRow android:paddingVertical="10dp">
+                <TextView
+                    style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/investments_target_pending"
+                    android:textSize="14sp" />
 
-            <TextView
-                style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text="@string/investments_target_pending" />
+                <TextView
+                    android:id="@+id/m_inv_target_pending_amount"
+                    style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textAlignment="textEnd"
+                    android:textSize="14sp" />
 
-            <TextView
-                android:id="@+id/m_inv_target_pending_amount"
-                style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:textSize="14sp"
-                android:textAlignment="textEnd" />
+            </TableRow>
 
-        </TableRow>
-
-    </TableLayout>
-
-</LinearLayout>
+        </TableLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

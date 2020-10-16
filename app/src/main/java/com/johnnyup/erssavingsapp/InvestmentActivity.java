@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -38,6 +39,7 @@ import model.Customer;
 import model.Investment;
 
 public class InvestmentActivity extends AppCompatActivity {
+    String userType;
 
     RecyclerView recyclerView;
     List<Investment> investmentModel = new ArrayList<>();
@@ -58,14 +60,33 @@ public class InvestmentActivity extends AppCompatActivity {
 
         DatabaseHandler db = new DatabaseHandler(InvestmentActivity.this);
         user = db.getUserDetails();
+        userType = user.get("type");
         fetchInvestment(user.get("uid"));
+
         Functions.getCustomers(customerList, fullCustomerList, user.get("uid"), getApplicationContext());
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == Activity.RESULT_OK) {
+            DatabaseHandler db = new DatabaseHandler(InvestmentActivity.this);
+            user = db.getUserDetails();
+            fetchInvestment(user.get("uid"));
+        }
+    }
+
     private void fetchInvestment(final String userID) {
+         String NEWURL = "";
+        if(userType.equalsIgnoreCase("customer")) {
+            NEWURL = Functions.INVESTMENT_URL;
+        } else {
+            NEWURL = Functions.INVESTMENT_MARKETER_URL;
+        }
         showDialog();
         StringRequest strReq = new StringRequest(Request.Method.POST,
-                Functions.getUrl(Functions.INVESTMENT_URL, getApplicationContext()), response -> {
+                Functions.getUrl(NEWURL, getApplicationContext()), response -> {
             hideDialog();
 
             try {
@@ -76,9 +97,17 @@ public class InvestmentActivity extends AppCompatActivity {
                     for (int i = 0; i < res.length(); i++) {
                         Investment Investment = new Investment();
                         JSONObject o = res.getJSONObject(i);
+
+                        if(!userType.equalsIgnoreCase("customer")) {
+                            Investment.setFirstName(o.getString("fname"));
+                            Investment.setLastName(o.getString("lname"));
+                            Investment.setUsername(o.getString("username"));
+                        }
+
                         Investment.setId(Integer.parseInt(o.getString("id")));
                         Investment.setAmount(o.getString("amount"));
                         Investment.setStart(o.getString("start"));
+                        Investment.setEnd(o.getString("end"));
                         Investment.setDay(o.getString("day"));
                         Investment.setInterest(o.getString("interest"));
                         Investment.setInvestment(o.getString("investment"));
@@ -124,6 +153,10 @@ public class InvestmentActivity extends AppCompatActivity {
 
         EditText investmentLabel = layout.findViewById(R.id.label);
         EditText investmentAmount = layout.findViewById(R.id.amount);
+
+        if(!userType.equalsIgnoreCase("customer")) {
+            layout.findViewById(R.id.customer_wrap).setVisibility(View.VISIBLE);
+        }
 
         List<String> durationList = new ArrayList<>();
         durationList.add("1 Month");
@@ -172,16 +205,18 @@ public class InvestmentActivity extends AppCompatActivity {
             String amount = investmentAmount.getText().toString();
             DatabaseHandler db = new DatabaseHandler(InvestmentActivity.this);
             user = db.getUserDetails();
-
-            Intent intent = new Intent(this, InvestmentPaystackActivity.class);
-            intent.putExtra("investment", label);
-            intent.putExtra("amount", amount);
-            intent.putExtra("duration", selectedDuration);
-            intent.putExtra("customer", selectedCustomer);
-            intent.putExtra("user", user.get("uid"));
-            startActivity(intent);
-
-            //Functions.submitInvestment(InvestmentActivity.this, label, amount, selectedDuration, selectedCustomer, user.get("uid"));
+            if(userType.equalsIgnoreCase("customer")) {
+                Intent intent = new Intent(this, InvestmentPaystackActivity.class);
+                intent.putExtra("investment", label);
+                intent.putExtra("amount", amount);
+                intent.putExtra("duration", selectedDuration);
+                intent.putExtra("customer", selectedCustomer);
+                intent.putExtra("user", user.get("uid"));
+                startActivity(intent);
+            } else {
+                Functions.submitInvestment(InvestmentActivity.this, label, amount, selectedDuration, selectedCustomer, user.get("uid"), userType);
+                fetchInvestment(user.get("uid"));
+            }
         })
                 .setNegativeButton("Close", (dialog, id) -> dialog.cancel());
         AlertDialog alertDialog = builder.create();

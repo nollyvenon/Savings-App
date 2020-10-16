@@ -83,4 +83,18 @@
     <string name="account_name">Account Name</string>
     <string name="account_number">Account Number</string>
     <string name="password">Password</string>
+    <string name="view_more">View more</string>
+    <string name="view_transactions">View Transactions</string>
+    <string name="description">Description</string>
+    <string name="type">Type</string>
+    <string name="source">Source</string>
+    <string name="transaction_history">Transaction History</string>
+    <string name="earning">Earning</string>
+    <string name="bonus">Bonus</string>
+    <string name="marketer_earnings">Marketer Earnings</string>
+    <string name="savings_earnings">Savings Earnings</string>
+    <string name="investment_earnings">Investment Earnings</string>
+    <string name="upload_image">Upload Image</string>
+    <string name="select">Select</string>
+    <string name="marketer_registration">Marketer Registration</string>
 </resources>

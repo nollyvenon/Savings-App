@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             app:cornerRadius="10dp"
-            android:text="@string/customer"
+            android:text="@string/add_customer"
             android:drawableStart="@drawable/icon_add"
             android:drawablePadding="3dp"
             android:drawableTint="@color/white"

@@ -1,93 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/m_savings"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="180dp"
+    app:cardElevation="1dp">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/m_savings"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardElevation="1dp">
+        android:orientation="vertical">
 
         <TextView
             style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:textStyle="bold"
-            android:text="@string/savings" />
+            android:paddingHorizontal="14dp"
+            android:paddingVertical="10dp"
+            android:text="@string/savings"
+            android:textStyle="bold" />
 
-    </androidx.cardview.widget.CardView>
 
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:paddingHorizontal="14dp"
-        android:background="@color/greyLight"
-        android:stretchColumns="1">
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="14dp"
+            android:stretchColumns="1">
 
-        <TableRow android:paddingVertical="10dp">
+            <TableRow android:paddingVertical="10dp">
 
-            <TextView
-                style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text="@string/savings_target" />
+                <TextView
+                    style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/savings_target"
+                    android:textSize="14sp" />
 
-            <TextView
-                android:id="@+id/m_sav_target_amount"
-                style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:textSize="14sp"
-                android:textAlignment="textEnd" />
+                <TextView
+                    android:id="@+id/m_sav_target_amount"
+                    style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textAlignment="textEnd"
+                    android:textSize="14sp" />
 
-        </TableRow>
+            </TableRow>
 
-        <TableRow android:paddingVertical="10dp">
+            <TableRow android:paddingVertical="10dp">
 
-            <TextView
-                style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text="@string/savings_target_met" />
+                <TextView
+                    style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/savings_target_met"
+                    android:textSize="14sp" />
 
-            <TextView
-                android:id="@+id/m_sav_target_met_amount"
-                style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:textSize="14sp"
-                android:textAlignment="textEnd" />
+                <TextView
+                    android:id="@+id/m_sav_target_met_amount"
+                    style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textAlignment="textEnd"
+                    android:textSize="14sp" />
 
-        </TableRow>
+            </TableRow>
 
-        <TableRow android:paddingVertical="10dp">
+            <TableRow android:paddingVertical="10dp">
 
-            <TextView
-                style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text="@string/savings_target_pending" />
+                <TextView
+                    style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/savings_target_pending"
+                    android:textSize="14sp" />
 
-            <TextView
-                android:id="@+id/m_sav_target_pending_amount"
-                style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:textSize="14sp"
-                android:textAlignment="textEnd" />
+                <TextView
+                    android:id="@+id/m_sav_target_pending_amount"
+                    style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textAlignment="textEnd"
+                    android:textSize="14sp" />
 
-        </TableRow>
+            </TableRow>
 
-    </TableLayout>
+        </TableLayout>
 
-</LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

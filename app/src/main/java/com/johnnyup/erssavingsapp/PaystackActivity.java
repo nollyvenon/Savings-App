@@ -3,6 +3,7 @@ package com.johnnyup.erssavingsapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.http.SslError;
@@ -55,7 +56,7 @@ public class PaystackActivity extends AppCompatActivity {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 progDialog.show();
                 if (url.contains("http://exitme")) {
-                    finish();  // close activity
+                    goBack();  // close activity
                 } else {
                     view.loadUrl(url);
                 }
@@ -76,7 +77,16 @@ public class PaystackActivity extends AppCompatActivity {
         webView.loadUrl(url);
     }
 
+
+
     public void goBack(View view) {
+        finish();
+    }
+
+    public void goBack() {
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("reload", "reload");
+        setResult(Activity.RESULT_OK, resultIntent);
         finish();
     }
 }

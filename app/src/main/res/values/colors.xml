@@ -7,7 +7,9 @@
     <color name="white">#ffffff</color>
     <color name="black">#000</color>
     <color name="greyLight">#f9f9f9</color>
-    <color name="darkBlue">#303e67</color>
+    <color name="darkBlue">#324499</color>
+    <color name="background">#f3f5f7</color>
+<!--    <color name="darkBlue">#303e67</color>-->
     <color name="orange">#ffb822</color>
     <color name="green">#22b783</color>
 </resources>

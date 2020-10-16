@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
+    android:background="@color/background"
     android:padding="16dp"
     tools:context="com.johnnyup.erssavingsapp.MarketerLoginActivity">
 
@@ -18,8 +19,9 @@
             android:id="@+id/open_drawer"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@color/white"
+            android:background="@color/background"
             android:onClick="goBack"
+            android:tint="@color/darkBlue"
             android:src="@drawable/icon_back" />
 
         <TextView
@@ -29,7 +31,7 @@
             android:layout_centerInParent="true"
             android:layout_marginStart="10dp"
             android:layout_toEndOf="@id/open_drawer"
-            android:text="@string/login_as_agent"
+            android:text="@string/marketer"
             android:textColor="@color/darkBlue"
             android:textSize="18sp" />
 
@@ -42,7 +44,7 @@
         <ImageView
             android:id="@+id/logo"
             android:layout_width="200dp"
-            android:layout_height="300dp"
+            android:layout_height="150dp"
             android:layout_centerHorizontal="true"
             android:src="@mipmap/logo" />
 
@@ -57,9 +59,9 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Username"
+                android:hint="@string/username"
                 android:inputType="text"
-                android:padding="20dp" />
+                android:padding="10dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -76,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_password"
                 android:inputType="textPassword"
-                android:padding="20dp" />
+                android:padding="10dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -90,6 +92,7 @@
             android:layout_alignParentEnd="true"
             android:text="@string/forgot_password"
             android:textAllCaps="false"
+            android:visibility="gone"
             android:textColor="@color/darkBlue" />
 
         <com.google.android.material.button.MaterialButton
@@ -99,23 +102,23 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/button_reset"
             android:layout_marginTop="20dp"
-            android:paddingVertical="15dp"
+            android:paddingVertical="10dp"
             android:text="@string/login"
             android:textColor="@color/white"
             app:backgroundTint="@color/darkBlue" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/button_register"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/button_login"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:paddingVertical="10dp"
-            android:text="@string/go_to_register"
-            android:textAllCaps="false"
-            android:textColor="@color/darkBlue" />
+<!--        <com.google.android.material.button.MaterialButton-->
+<!--            android:id="@+id/button_register"-->
+<!--            style="@style/Widget.MaterialComponents.Button.OutlinedButton"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@id/button_login"-->
+<!--            android:layout_centerHorizontal="true"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:paddingVertical="10dp"-->
+<!--            android:text="@string/go_to_register"-->
+<!--            android:textAllCaps="false"-->
+<!--            android:textColor="@color/darkBlue" />-->
     </RelativeLayout>
 
 </LinearLayout>
