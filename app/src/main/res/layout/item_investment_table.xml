@@ -109,7 +109,6 @@
             android:background="#FF909090" />
 
         <TableRow
-            android:visibility="gone"
             android:id="@+id/row_end_date"
             android:paddingVertical="10dp">
 
@@ -123,7 +122,6 @@
         </TableRow>
 
         <View
-            android:visibility="gone"
             android:id="@+id/d_end_date"
             android:layout_height="1dp"
             android:background="#FF909090" />

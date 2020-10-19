@@ -60,6 +60,7 @@ public class ProfileActivity extends AppCompatActivity {
     String userType, username;
 
     private HashMap<String, String> user = new HashMap<>();
+    String userID = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,10 +90,17 @@ public class ProfileActivity extends AppCompatActivity {
         user = db.getUserDetails();
         userType = user.get("type");
 
-        getProfile(user.get("uid"));
+        userID = user.get("uid");
+
+        Intent intent = getIntent();
+        if(intent.getStringExtra("userID") != null) {
+            userID = intent.getStringExtra("userID");
+            userType = "customer";
+        }
+
+        getProfile(userID);
 
         findViewById(R.id.update_profile).setOnClickListener(v -> {
-
             String sfirstName = firstName.getText().toString();
             String slastName = lastName.getText().toString();
             String smiddleName = middleName.getText().toString();
@@ -170,8 +178,6 @@ public class ProfileActivity extends AppCompatActivity {
                 kemail.setText(res.getString("nemail"));
                 kaddress.setText(res.getString("naddress"));
                 username = res.getString("username");
-//                Glide.with(this).load(PROFILE_IMG_LINK +
-//                        res.getString("username") + "/" + res.getString("image")).into(profileImage);
 
                 Glide.with(this)
                         .load(PROFILE_IMG_LINK +
@@ -238,7 +244,7 @@ public class ProfileActivity extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 // Posting parameters to erssavingsapp url
                 Map<String, String> params = new HashMap<>();
-                params.put("user", user.get("uid"));
+                params.put("user", userID);
                 params.put("fname", sfirstName);
                 params.put("middlename", smiddleName);
                 params.put("lname", slastName);

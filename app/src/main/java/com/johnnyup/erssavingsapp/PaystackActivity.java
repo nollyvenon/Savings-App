@@ -41,7 +41,7 @@ public class PaystackActivity extends AppCompatActivity {
         String date = intent.getStringExtra("date");
         String savingID = intent.getStringExtra("saving_id");
 
-        String url = Functions.getUrl(Functions.FUND_SAVINGS_URL, getApplicationContext()) + userID + "/" + amount + "/" + date + "/" + savingID;
+        String url = Functions.getUrl(Functions.FUND_SAVINGS_URL, getApplicationContext()) + userID + "/" + amount + "/" + date + "/" + savingID + "/" + user.get("token");
 
         WebView webView = findViewById(R.id.webView);
         webView.getSettings().setJavaScriptEnabled(true);

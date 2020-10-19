@@ -83,6 +83,9 @@ public class InvestmentAdapter extends RecyclerView.Adapter<InvestmentAdapter.Vi
             holder.startDateT.setText(R.string.start_date);
             holder.startDateV.setText(data.get(position).getStart());
 
+            holder.endDateT.setText(R.string.end_date);
+            holder.endDateV.setText(data.get(position).getEnd());
+
             holder.statusT.setText(R.string.status);
             holder.statusV.setText(String.format("%s%s", Character.toString(sfirstLetter).toUpperCase(), st.substring(1)));
 
@@ -121,8 +124,6 @@ public class InvestmentAdapter extends RecyclerView.Adapter<InvestmentAdapter.Vi
             holder.startDateT.setText(R.string.start_date);
             holder.startDateV.setText(data.get(position).getStart());
 
-            holder.rowEndDate.setVisibility(View.VISIBLE);
-            holder.divider.setVisibility(View.VISIBLE);
             holder.endDateT.setText(R.string.end_date);
             holder.endDateV.setText(data.get(position).getEnd());
 
@@ -141,8 +142,8 @@ public class InvestmentAdapter extends RecyclerView.Adapter<InvestmentAdapter.Vi
         TextView investmentT, investmentV, amountT, amountV, dayT, dayV, interestT;
         TextView interestV, totalT, totalV, startDateT, startDateV, endDateT, endDateV, statusT, statusV;
         Button withdraw;
-        TableRow rowEndDate, rowWithdrawBtn;
-        View divider, rowStatus;
+        TableRow rowWithdrawBtn;
+        View rowStatus;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -164,10 +165,8 @@ public class InvestmentAdapter extends RecyclerView.Adapter<InvestmentAdapter.Vi
             statusT = itemView.findViewById(R.id.header_title_status);
             statusV = itemView.findViewById(R.id.header_value_status);
             withdraw = itemView.findViewById(R.id.withdraw);
-            rowEndDate = itemView.findViewById(R.id.row_end_date);
             rowStatus = itemView.findViewById(R.id.d_status);
             rowWithdrawBtn = itemView.findViewById(R.id.row_withdraw_btn);
-            divider = itemView.findViewById(R.id.d_end_date);
         }
     }
 }

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -34,6 +35,8 @@ public class CustomerActivity extends AppCompatActivity {
     List<Customer> fullCustomerList = new ArrayList<>();
     private HashMap<String, String> user = new HashMap<>();
 
+    final static int RELOAD_CODE = 112;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +51,19 @@ public class CustomerActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == Activity.RESULT_OK) {
+            // TODO Extract the data returned from the child Activity.
+            DatabaseHandler db = new DatabaseHandler(CustomerActivity.this);
+            user = db.getUserDetails();
+            getCustomers(user.get("uid"));
+        }
+
+    }
+
     public void getCustomers(String userID) {
         showDialog();
         StringRequest strReq = new StringRequest(Request.Method.POST,
@@ -56,10 +72,12 @@ public class CustomerActivity extends AppCompatActivity {
                 JSONObject jObj = new JSONObject(response);
                 JSONArray customers = jObj.getJSONArray("customers");
 
+                fullCustomerList.clear();
                 if (customers.length() > 0) {
                     for (int i = 0; i < customers.length(); i++) {
                         Customer customer = new Customer();
                         JSONObject o = customers.getJSONObject(i);
+                        customer.setId(o.getString("id"));
                         customer.setFname(o.getString("fname"));
                         customer.setLname(o.getString("lname"));
                         customer.setUsername(o.getString("username"));

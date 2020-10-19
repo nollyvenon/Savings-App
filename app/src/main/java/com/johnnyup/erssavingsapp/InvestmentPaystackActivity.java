@@ -11,13 +11,18 @@ import android.view.View;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 import com.johnnyup.erssavingsapp.helper.DatabaseHandler;
 import com.johnnyup.erssavingsapp.helper.Functions;
 
 import org.snowcorp.login.R;
 
+import java.util.HashMap;
+
 public class InvestmentPaystackActivity extends AppCompatActivity {
+
+    private HashMap<String, String> userdb = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +36,15 @@ public class InvestmentPaystackActivity extends AppCompatActivity {
         String amount = intent.getStringExtra("amount");
         String duration = intent.getStringExtra("duration");
         String customer = intent.getStringExtra("customer");
-        String agent = intent.getStringExtra("user");
+        if(customer.equalsIgnoreCase("")) {
+            customer = "0";
+        }
+        String user = intent.getStringExtra("user");
 
-        String url = Functions.getUrl(Functions.ADD_INVESTMENT_URL, getApplicationContext()) + agent + "/" + amount + "/" + duration + "/" + customer + "/" + investment;
+        DatabaseHandler db = new DatabaseHandler(InvestmentPaystackActivity.this);
+        userdb = db.getUserDetails();
+
+        String url = Functions.getUrl(Functions.ADD_INVESTMENT_URL, getApplicationContext()) + user + "/" + amount + "/" + duration + "/" + customer + "/" + investment + "/" +  userdb.get("token");
 
         WebView webView = findViewById(R.id.webView);
         webView.getSettings().setJavaScriptEnabled(true);

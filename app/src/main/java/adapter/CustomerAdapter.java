@@ -1,13 +1,18 @@
 package adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.johnnyup.erssavingsapp.ProfileActivity;
 
 import org.snowcorp.login.R;
 import java.util.List;
@@ -45,6 +50,12 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
         holder.username.setText(data.get(position).getUsername());
         holder.email.setText(data.get(position).getEmail());
         holder.phone.setText(data.get(position).getPhone());
+
+        holder.editProfile.setOnClickListener(v -> {
+            Intent intent = new Intent(context, ProfileActivity.class);
+            intent.putExtra("userID", data.get(position).getId());
+            ((Activity) context).startActivityForResult(intent, 112);
+        });
     }
 
     @Override
@@ -55,6 +66,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView user, username, email, phone;
+        Button editProfile;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -64,6 +76,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.ViewHo
             username = itemView.findViewById(R.id.username);
             email = itemView.findViewById(R.id.email);
             phone = itemView.findViewById(R.id.phone_number);
+            editProfile = itemView.findViewById(R.id.edit_profile);
         }
     }
 }
