@@ -90,12 +90,11 @@ public class LoginActivity extends AppCompatActivity {
 
             // Check for empty data in the form
             if (!email.isEmpty() && !password.isEmpty()) {
-                if (Functions.isValidEmailAddress(email)) {
-                    // erssavingsapp user
+//                if (Functions.isValidEmailAddress(email)) {
                     loginProcess(email, password);
-                } else {
-                    Toast.makeText(getApplicationContext(), "Username is not valid!", Toast.LENGTH_SHORT).show();
-                }
+//                } else {
+//                    Toast.makeText(getApplicationContext(), "Username is not valid!", Toast.LENGTH_SHORT).show();
+//                }
             } else {
                 // Prompt user to enter credentials
                 Toast.makeText(getApplicationContext(), "Please enter the credentials!", Toast.LENGTH_LONG).show();

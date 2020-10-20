@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,6 +37,8 @@ import java.util.Map;
 
 import adapter.SavingsAdapter;
 import model.Customer;
+
+import static com.johnnyup.erssavingsapp.helper.Functions.ADD_SAVINGS_URL;
 
 public class SavingsActivity extends AppCompatActivity {
 
@@ -92,7 +95,7 @@ public class SavingsActivity extends AppCompatActivity {
 
                 // Check for error node in json
                 if (res.length() > 0) {
-
+                    savingsModel.clear();
                     for (int i = 0; i < res.length(); i++) {
                         model.Savings savings = new model.Savings();
                         JSONObject o = res.getJSONObject(i);
@@ -139,7 +142,7 @@ public class SavingsActivity extends AppCompatActivity {
         };
 
         // Adding request to request queue
-        MyApplication.getInstance().addToRequestQueue(strReq, "investment_req");
+        MyApplication.getInstance().addToRequestQueue(strReq, "fetch_saving_req");
     }
 
     public void goBack(View view) {
@@ -188,11 +191,50 @@ public class SavingsActivity extends AppCompatActivity {
             String amount = savingsAmount.getText().toString();
             DatabaseHandler db = new DatabaseHandler(SavingsActivity.this);
             user = db.getUserDetails();
-            Functions.submitSavings(SavingsActivity.this, label, amount, selectedCustomer, user.get("uid"), user.get("type"));
+            submitSavings(label, amount, selectedCustomer, user.get("uid"), user.get("type"));
         })
                 .setNegativeButton("Close", (dialog, id) -> dialog.cancel());
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+    }
+
+    public void submitSavings(String label, String amount, String selectedCustomer, String userID, String userType) {
+        showDialog();
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                Functions.getUrl(ADD_SAVINGS_URL, SavingsActivity.this), response -> {
+            hideDialog();
+            try {
+                JSONObject jObj = new JSONObject(response);
+                boolean status = jObj.getBoolean("status");
+
+                // Check for error node in json
+                if (status) {
+                    Toast.makeText(this, "Savings Added!", Toast.LENGTH_LONG).show();
+                    fetchSavings(user.get("uid"), user.get("type"));
+                } else {
+                    Toast.makeText(SavingsActivity.this, "An error occurred", Toast.LENGTH_LONG).show();
+                }
+            } catch (JSONException e) {
+                //Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }, error -> {
+            Toast.makeText(SavingsActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+            hideDialog();
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("amount", amount);
+                params.put("savings", label);
+                params.put("user", userID);
+                params.put("type", userType);
+                params.put("agent", selectedCustomer);
+                return params;
+            }
+        };
+
+        // Adding request to request queue
+        MyApplication.getInstance().addToRequestQueue(strReq, "saving_req");
     }
 
     private void showDialog() {

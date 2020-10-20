@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -37,6 +38,8 @@ import adapter.InvestmentAdapter;
 import adapter.SavingsAdapter;
 import model.Customer;
 import model.Investment;
+
+import static com.johnnyup.erssavingsapp.helper.Functions.ADD_MARKETER_INVESTMENT_URL;
 
 public class InvestmentActivity extends AppCompatActivity {
     String userType;
@@ -93,6 +96,7 @@ public class InvestmentActivity extends AppCompatActivity {
                 JSONObject jObj = new JSONObject(response);
                 JSONArray res = jObj.getJSONArray("Investments");
                 // Check for error node in json
+                investmentModel.clear();
                 if (res.length() > 0) {
                     for (int i = 0; i < res.length(); i++) {
                         Investment Investment = new Investment();
@@ -214,13 +218,53 @@ public class InvestmentActivity extends AppCompatActivity {
                 intent.putExtra("user", user.get("uid"));
                 startActivity(intent);
             } else {
-                Functions.submitInvestment(InvestmentActivity.this, label, amount, selectedDuration, selectedCustomer, user.get("uid"), userType);
-                fetchInvestment(user.get("uid"));
+                submitInvestment(label, amount, selectedDuration, selectedCustomer, user.get("uid"), userType);
             }
         })
                 .setNegativeButton("Close", (dialog, id) -> dialog.cancel());
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+    }
+
+    public void submitInvestment(String label, String amount, String duration,
+                                        String customer, String userID, String userType) {
+        showDialog();
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                Functions.getUrl(ADD_MARKETER_INVESTMENT_URL, InvestmentActivity.this), response -> {
+            hideDialog();
+            try {
+                JSONObject jObj = new JSONObject(response);
+                boolean status = jObj.getBoolean("status");
+
+                // Check for error node in json
+                if (status) {
+                    Toast.makeText(InvestmentActivity.this, "Investment Added!", Toast.LENGTH_LONG).show();
+                    fetchInvestment(user.get("uid"));
+                } else {
+                    Toast.makeText(InvestmentActivity.this, "An error occurred", Toast.LENGTH_LONG).show();
+                }
+            } catch (JSONException e) {
+                //Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }, error -> {
+            Toast.makeText(InvestmentActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+            hideDialog();
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("amount", amount);
+                params.put("investment", label);
+                params.put("agent", userID);
+                params.put("user", customer);
+                params.put("duration", duration);
+                params.put("type", userType);
+                return params;
+            }
+        };
+
+        // Adding request to request queue
+        MyApplication.getInstance().addToRequestQueue(strReq, "investment_req");
     }
 
     public void goBack(View view) {

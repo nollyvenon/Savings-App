@@ -81,7 +81,7 @@ public class SavingsAdapter extends RecyclerView.Adapter<SavingsAdapter.ViewHold
             holder.savingV.setText(firstLetter.toString().toUpperCase() + s.substring(1, s.length()));
 
             holder.amountT.setText(R.string.amount);
-            holder.amountV.setText("N" +format.format(Double.parseDouble(data.get(position).getBalance())));
+            holder.amountV.setText("N" + format.format(Double.parseDouble(data.get(position).getBalance())));
 
             holder.startDateT.setText(R.string.start_date);
             holder.startDateV.setText(data.get(position).getDate_start());
@@ -90,7 +90,7 @@ public class SavingsAdapter extends RecyclerView.Adapter<SavingsAdapter.ViewHold
             holder.endDateV.setText(data.get(position).getDate_end());
 
             holder.dailyAmountT.setText(R.string.daily_amount);
-            holder.dailyAmountV.setText("N" +format.format(Double.parseDouble(data.get(position).getAmount())));
+            holder.dailyAmountV.setText("N" + format.format(Double.parseDouble(data.get(position).getAmount())));
 
             holder.statusT.setText(R.string.status);
             holder.statusV.setText(data.get(position).getStatus());
@@ -106,10 +106,10 @@ public class SavingsAdapter extends RecyclerView.Adapter<SavingsAdapter.ViewHold
             holder.endDateV.setText(firstLetter.toString().toUpperCase() + s.substring(1, s.length()));
 
             holder.startDateT.setText("Amount Saved");
-            holder.startDateV.setText("N" +format.format(Double.parseDouble(data.get(position).getBalance())));
+            holder.startDateV.setText("N" + format.format(Double.parseDouble(data.get(position).getBalance())));
 
             holder.dailyAmountT.setText("Daily Saved");
-            holder.dailyAmountV.setText("N" +format.format(Double.parseDouble(data.get(position).getAmount())));
+            holder.dailyAmountV.setText("N" + format.format(Double.parseDouble(data.get(position).getAmount())));
 
             holder.statusT.setText("Fund");
             holder.statusV.setText(data.get(position).getStatus());
@@ -201,17 +201,7 @@ public class SavingsAdapter extends RecyclerView.Adapter<SavingsAdapter.ViewHold
         });
 
         holder.viewTransaction.setOnClickListener(v -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
-            assert inflater != null;
-            View layout = inflater.inflate(R.layout.recyclerview, null);
-
-            RecyclerView recyclerView = layout.findViewById(R.id.recycler_view);
-            savingTransactions(context, String.valueOf(data.get(position).getId()), recyclerView);
-
-            builder.setView(layout);
-            AlertDialog alertDialog = builder.create();
-            alertDialog.show();
+            savingTransactions(context, String.valueOf(data.get(position).getId()));
         });
     }
 

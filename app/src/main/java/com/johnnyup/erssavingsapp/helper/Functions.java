@@ -2,11 +2,15 @@ package com.johnnyup.erssavingsapp.helper;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
@@ -24,6 +28,7 @@ import com.johnnyup.erssavingsapp.widget.ProgressBarDialog;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.snowcorp.login.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,8 +41,12 @@ import model.Customer;
 import model.Investment;
 import model.SavingsTransaction;
 
+import static android.content.Context.LAYOUT_INFLATER_SERVICE;
+
 
 public class Functions {
+
+    public static boolean check = false;
 
     //Main URL
     private static String MAIN_URL = "https://www.savings.ersnets.net/mcalls/";
@@ -70,7 +79,7 @@ public class Functions {
 
     // savings
     public static String SAVINGS_URL = "savings";
-    public static String ADD_SAVINGS_URL = "savings/save2";
+    public static String ADD_SAVINGS_URL = "savings/save";
     public static String FUND_SAVINGS_URL = "savings/fund/";
     public static String WITHDRAW_SAVINGS_URL = "savings/withdraw/";
     public static String SAVINGS_TRANSACTION_URL = "savings/savingsTransactions/";
@@ -142,10 +151,11 @@ public class Functions {
 
     public static void submitSavings(Context context, String label, String amount, String selectedCustomer, String userID, String userType) {
         showProgressDialog(context, "Please wait...");
+        check = false;
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 Functions.getUrl(ADD_SAVINGS_URL, context), response -> {
             hideProgressDialog(context);
-
+            check = true;
             try {
                 JSONObject jObj = new JSONObject(response);
                 boolean status = jObj.getBoolean("status");
@@ -160,6 +170,7 @@ public class Functions {
                 //Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
             }
         }, error -> {
+            check = true;
             Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
             hideProgressDialog(context);
         }) {
@@ -182,9 +193,11 @@ public class Functions {
     public static void submitInvestment(Context context, String label, String amount, String duration,
                                         String customer, String userID, String userType) {
         showProgressDialog(context, "Please wait...");
+        check = false;
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 Functions.getUrl(ADD_MARKETER_INVESTMENT_URL, context), response -> {
             hideProgressDialog(context);
+            check = true;
 
             try {
                 JSONObject jObj = new JSONObject(response);
@@ -200,6 +213,7 @@ public class Functions {
                 //Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
             }
         }, error -> {
+            check = true;
             Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
             hideProgressDialog(context);
         }) {
@@ -208,8 +222,8 @@ public class Functions {
                 Map<String, String> params = new HashMap<>();
                 params.put("amount", amount);
                 params.put("investment", label);
-                params.put("user", userID);
-                params.put("customer", customer);
+                params.put("agent", userID);
+                params.put("user", customer);
                 params.put("duration", duration);
                 params.put("type", userType);
                 return params;
@@ -220,8 +234,15 @@ public class Functions {
         MyApplication.getInstance().addToRequestQueue(strReq, "investment_req");
     }
 
-    public static void savingTransactions(Context context, String id, RecyclerView recyclerView) {
+    public static void savingTransactions(Context context, String id) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
+        assert inflater != null;
+        View layout = inflater.inflate(R.layout.recyclerview, null);
+        RecyclerView recyclerView = layout.findViewById(R.id.recycler_view);
+
         showProgressDialog(context, "Please wait...");
+
         List<SavingsTransaction> savingsTransactions = new ArrayList<>();
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 Functions.getUrl(SAVINGS_TRANSACTION_URL, context), response -> {
@@ -232,9 +253,18 @@ public class Functions {
                 boolean status = jObj.getBoolean("status");
                 JSONArray res = jObj.getJSONArray("transactions");
 
+                if(res.length() < 1) {
+                    Toast.makeText(context, "No transaction data exist", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 // Check for error node in json
                 if (status) {
                     if (res.length() > 0) {
+                        builder.setView(layout);
+                        AlertDialog alertDialog = builder.create();
+                        alertDialog.show();
+
                         for (int i = 0; i < res.length(); i++) {
                             SavingsTransaction s = new SavingsTransaction();
                             JSONObject o = res.getJSONObject(i);
@@ -251,6 +281,7 @@ public class Functions {
                     GridLayoutManager manager = new GridLayoutManager(context, 1);
                     recyclerView.setLayoutManager(manager);
                     recyclerView.setAdapter(adapter);
+
                 } else {
                     Toast.makeText(context, "An error occurred", Toast.LENGTH_LONG).show();
                 }
