@@ -175,10 +175,10 @@ public class MarketerLoginActivity extends AppCompatActivity {
 
             try {
                 JSONObject jObj = new JSONObject(response);
-                boolean error = jObj.getBoolean("error");
+                boolean status = jObj.getBoolean("status");
 
                 // Check for error node in json
-                if (!error) {
+                if (status) {
                     // user successfully logged in
                     JSONObject json_user = jObj.getJSONObject("user");
 
