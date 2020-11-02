@@ -623,6 +623,16 @@ public class HomeActivity extends AppCompatActivity {
         finish();
     }
 
+    @Override
+    public void onBackPressed() {
+        if (session.isLoggedIn()) {
+            Intent i = new Intent(HomeActivity.this, HomeActivity.class);
+            startActivity(i);
+            finish();
+        }
+        super.onBackPressed();
+    }
+
     private void changePassword(String userID, String old_pass, String new_pass, String userType) {
         // Tag used to cancel the request
         String tag_string_req = "req_reset_pass";

@@ -148,7 +148,7 @@ public class LoginActivity extends AppCompatActivity {
                         resetPassword(email);
                         dialog.dismiss();
                     } else {
-                        Toast.makeText(getApplicationContext(), "Username is not valid!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Email is not valid!", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Toast.makeText(getApplicationContext(), "Fill all values!", Toast.LENGTH_SHORT).show();
