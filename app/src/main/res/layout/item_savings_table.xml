@@ -129,13 +129,5 @@
                 app:backgroundTint="@color/green" />
         </TableRow>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/view_transaction_btn"
-            android:layout_width="match_parent"
-            android:text="@string/view_transactions"
-            app:backgroundTint="@color/green"
-            app:cornerRadius="5dp"
-            android:visibility="gone"/>
-
     </TableLayout>
 </androidx.cardview.widget.CardView>

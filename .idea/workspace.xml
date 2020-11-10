@@ -16,10 +16,6 @@
   <component name="ChangeListManager">
     <list default="true" id="bdea0f17-1044-44a1-8ae7-ddd0aca78b41" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -65,8 +61,8 @@
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="device.picker.selection" value="1115fb6867e00504" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/layout" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res/drawable" />
-    <property name="settings.editor.selected.configurable" value="emulator" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../QIBus_product" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
@@ -214,30 +210,30 @@
       <screen x="0" y="0" width="1440" height="860" />
     </state>
     <state x="321" y="0" key="CommitChangelistDialog2/0.0.1440.860@0.0.1440.860" timestamp="1602862445703" />
-    <state x="500" y="156" key="FileChooserDialogImpl" timestamp="1602496804225">
+    <state x="500" y="156" key="FileChooserDialogImpl" timestamp="1604392409293">
       <screen x="0" y="0" width="1440" height="860" />
     </state>
-    <state x="500" y="156" key="FileChooserDialogImpl/0.0.1440.860@0.0.1440.860" timestamp="1602496804225" />
-    <state width="1379" height="216" key="GridCell.Tab.0.bottom" timestamp="1603190586864">
+    <state x="500" y="156" key="FileChooserDialogImpl/0.0.1440.860@0.0.1440.860" timestamp="1604392409293" />
+    <state width="1379" height="216" key="GridCell.Tab.0.bottom" timestamp="1605006889275">
       <screen x="0" y="0" width="1440" height="860" />
     </state>
-    <state width="1379" height="216" key="GridCell.Tab.0.bottom/0.0.1440.860@0.0.1440.860" timestamp="1603190586864" />
-    <state width="1379" height="216" key="GridCell.Tab.0.center" timestamp="1603190586864">
+    <state width="1379" height="216" key="GridCell.Tab.0.bottom/0.0.1440.860@0.0.1440.860" timestamp="1605006889275" />
+    <state width="1379" height="216" key="GridCell.Tab.0.center" timestamp="1605006889275">
       <screen x="0" y="0" width="1440" height="860" />
     </state>
-    <state width="1379" height="216" key="GridCell.Tab.0.center/0.0.1440.860@0.0.1440.860" timestamp="1603190586864" />
-    <state width="1379" height="216" key="GridCell.Tab.0.left" timestamp="1603190586863">
+    <state width="1379" height="216" key="GridCell.Tab.0.center/0.0.1440.860@0.0.1440.860" timestamp="1605006889275" />
+    <state width="1379" height="216" key="GridCell.Tab.0.left" timestamp="1605006889275">
       <screen x="0" y="0" width="1440" height="860" />
     </state>
-    <state width="1379" height="216" key="GridCell.Tab.0.left/0.0.1440.860@0.0.1440.860" timestamp="1603190586863" />
-    <state width="1379" height="216" key="GridCell.Tab.0.right" timestamp="1603190586864">
+    <state width="1379" height="216" key="GridCell.Tab.0.left/0.0.1440.860@0.0.1440.860" timestamp="1605006889275" />
+    <state width="1379" height="216" key="GridCell.Tab.0.right" timestamp="1605006889275">
       <screen x="0" y="0" width="1440" height="860" />
     </state>
-    <state width="1379" height="216" key="GridCell.Tab.0.right/0.0.1440.860@0.0.1440.860" timestamp="1603190586864" />
-    <state x="127" y="51" key="SettingsEditor" timestamp="1602674407665">
+    <state width="1379" height="216" key="GridCell.Tab.0.right/0.0.1440.860@0.0.1440.860" timestamp="1605006889275" />
+    <state x="127" y="51" key="SettingsEditor" timestamp="1604998612879">
       <screen x="0" y="0" width="1440" height="860" />
     </state>
-    <state x="127" y="51" key="SettingsEditor/0.0.1440.860@0.0.1440.860" timestamp="1602674407665" />
+    <state x="127" y="51" key="SettingsEditor/0.0.1440.860@0.0.1440.860" timestamp="1604998612879" />
     <state x="536" y="208" key="chooseDestDirectoryDialog" timestamp="1601977240759">
       <screen x="0" y="0" width="1440" height="860" />
     </state>

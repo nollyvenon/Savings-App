@@ -103,6 +103,8 @@ public class SavingsActivity extends AppCompatActivity {
                             savings.setFirstName(o.getString("lname"));
                             savings.setLastName(o.getString("fname"));
                             savings.setUsername(o.getString("username"));
+                            savings.setAgent(o.getInt("agent"));
+                            savings.setUser(o.getInt("cid"));
                         }
                         savings.setAmount(o.getString("amount"));
                         savings.setDate_end(o.getString("date_end"));
@@ -235,6 +237,13 @@ public class SavingsActivity extends AppCompatActivity {
 
         // Adding request to request queue
         MyApplication.getInstance().addToRequestQueue(strReq, "saving_req");
+    }
+
+    public void goBack() {
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("reload", "reload");
+        setResult(Activity.RESULT_OK, resultIntent);
+        finish();
     }
 
     private void showDialog() {

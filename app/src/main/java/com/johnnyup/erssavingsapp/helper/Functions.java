@@ -81,6 +81,7 @@ public class Functions {
     public static String SAVINGS_URL = "savings";
     public static String ADD_SAVINGS_URL = "savings/save";
     public static String FUND_SAVINGS_URL = "savings/fund/";
+    public static String MARKETER_FUND_SAVINGS_URL = "savings/saveFundByMarketer/";
     public static String WITHDRAW_SAVINGS_URL = "savings/withdraw/";
     public static String SAVINGS_TRANSACTION_URL = "savings/savingsTransactions/";
 
@@ -234,6 +235,54 @@ public class Functions {
         MyApplication.getInstance().addToRequestQueue(strReq, "investment_req");
     }
 
+    public static void fundSavingsByMarketer(Context context, String amount, String userID, String savingID, String date, String agent) {
+        showProgressDialog(context, "Please wait...");
+
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                Functions.getUrl(MARKETER_FUND_SAVINGS_URL, context), response -> {
+            hideProgressDialog(context);
+
+            try {
+                JSONObject jObj = new JSONObject(response);
+                boolean status = jObj.getBoolean("status");
+
+                // Check for error node in json
+                if (status) {
+                    goBack(context);
+                    Toast.makeText(context, "Savings funded successfully!", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(context, "An error occurred", Toast.LENGTH_LONG).show();
+                }
+            } catch (JSONException e) {
+                //Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }, error -> {
+            Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+            hideProgressDialog(context);
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("amount", amount);
+                params.put("customer", userID);
+                params.put("agent", agent);
+                params.put("date", date);
+                params.put("id", savingID);
+                return params;
+            }
+        };
+
+        // Adding request to request queue
+        MyApplication.getInstance().addToRequestQueue(strReq, "marketer_fund_savings");
+    }
+
+    public static void goBack(Context context) {
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("reload", "reload");
+        ((Activity) context).setResult(Activity.RESULT_OK, resultIntent);
+        ((Activity) context).finish();
+    }
+
     public static void savingTransactions(Context context, String id) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -253,7 +302,7 @@ public class Functions {
                 boolean status = jObj.getBoolean("status");
                 JSONArray res = jObj.getJSONArray("transactions");
 
-                if(res.length() < 1) {
+                if (res.length() < 1) {
                     Toast.makeText(context, "No transaction data exist", Toast.LENGTH_LONG).show();
                     return;
                 }

@@ -111,40 +111,48 @@ public class SavingsAdapter extends RecyclerView.Adapter<SavingsAdapter.ViewHold
             holder.dailyAmountT.setText("Daily Saved");
             holder.dailyAmountV.setText("N" + format.format(Double.parseDouble(data.get(position).getAmount())));
 
-            holder.statusT.setText("Fund");
+            holder.statusT.setText(R.string.fund);
             holder.statusV.setText(data.get(position).getStatus());
-            holder.rowFundBtn.setVisibility(View.GONE);
-            holder.viewTransaction.setVisibility(View.VISIBLE);
+            holder.withdraw.setText(R.string.view_transactions);
+            if (!data.get(position).getStatus().equalsIgnoreCase("active")) {
+                holder.fund.setVisibility(View.GONE);
+            }
         }
 
+        if (userType.equalsIgnoreCase("customer")) {
+            holder.withdraw.setOnClickListener(v -> {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
-        holder.withdraw.setOnClickListener(v -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                assert inflater != null;
+                View layout = inflater.inflate(R.layout.item_withdraw, null);
+                EditText amount = layout.findViewById(R.id.amount);
 
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            assert inflater != null;
-            View layout = inflater.inflate(R.layout.item_withdraw, null);
-            EditText amount = layout.findViewById(R.id.amount);
+                builder.setView(layout);
+                builder.setPositiveButton(R.string.withdraw, (dialog, id) -> {
 
-            builder.setView(layout);
-            builder.setPositiveButton(R.string.withdraw, (dialog, id) -> {
+                    String amountStr = amount.getText().toString();
+                    if (amountStr.isEmpty()) {
+                        Toast.makeText(context, "Amount is empty", Toast.LENGTH_LONG).show();
+                        return;
+                    }
 
-                String amountStr = amount.getText().toString();
-                if (amountStr.isEmpty()) {
-                    Toast.makeText(context, "Amount is empty", Toast.LENGTH_LONG).show();
-                    return;
-                }
-
-                if (Double.parseDouble(amountStr) > Double.parseDouble(data.get(position).getBalance())) {
-                    Toast.makeText(context, "Your request is more than your savings", Toast.LENGTH_LONG).show();
-                    return;
-                }
-                Functions.savingsWithdraw(context, amountStr, user.get("uid"), String.valueOf(data.get(position).getId()));
-            })
-                    .setNegativeButton("Close", (dialog, id) -> dialog.cancel());
-            AlertDialog alertDialog = builder.create();
-            alertDialog.show();
-        });
+                    if (Double.parseDouble(amountStr) > Double.parseDouble(data.get(position).getBalance())) {
+                        Toast.makeText(context, "Your request is more than your savings", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    Functions.savingsWithdraw(context, amountStr, user.get("uid"), String.valueOf(data.get(position).getId()));
+                })
+                        .setNegativeButton("Close", (dialog, id) -> dialog.cancel());
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+            });
+        } else {
+            holder.withdraw.setOnClickListener(v -> {
+                savingTransactions(context, String.valueOf(data.get(position).getId()));
+            });
+            holder.withdraw.setTextSize(12);
+        }
 
         holder.fund.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -155,6 +163,9 @@ public class SavingsAdapter extends RecyclerView.Adapter<SavingsAdapter.ViewHold
 
             EditText amount = layout.findViewById(R.id.amount);
             amount.setText(data.get(position).getAmount());
+
+            TextView username = layout.findViewById(R.id.username);
+            username.setText("Fund " + data.get(position).getFirstName() + " " + data.get(position).getLastName() + "'s account");
 
             EditText myDate = layout.findViewById(R.id.date);
 
@@ -184,25 +195,33 @@ public class SavingsAdapter extends RecyclerView.Adapter<SavingsAdapter.ViewHold
                     return;
                 }
 
+                if (Integer.parseInt(amountStr) > Integer.parseInt(data.get(position).getAmount())) {
+                    Toast.makeText(context, "Amount should not be more than " + data.get(position).getAmount(), Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 if (dateStr.isEmpty()) {
                     Toast.makeText(context, "Pick date", Toast.LENGTH_LONG).show();
                     return;
                 }
 
-                Intent intent = new Intent(context, PaystackActivity.class);
-                intent.putExtra("amount", amountStr);
-                intent.putExtra("date", dateStr);
-                intent.putExtra("saving_id", String.valueOf(data.get(position).getId()));
-                context.startActivity(intent);
+                if (userType.equalsIgnoreCase("customer")) {
+                    Intent intent = new Intent(context, PaystackActivity.class);
+                    intent.putExtra("amount", amountStr);
+                    intent.putExtra("date", dateStr);
+                    intent.putExtra("saving_id", String.valueOf(data.get(position).getId()));
+                    context.startActivity(intent);
+                } else {
+                    //Toast.makeText(context, ""+data.get(position).getUser(), Toast.LENGTH_LONG).show();
+                    Functions.fundSavingsByMarketer(context, amountStr, "" + data.get(position).getUser(),
+                            "" + data.get(position).getId(), dateStr, ""+data.get(position).getAgent());
+                }
             })
                     .setNegativeButton("Close", (dialog, id) -> dialog.cancel());
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
         });
 
-        holder.viewTransaction.setOnClickListener(v -> {
-            savingTransactions(context, String.valueOf(data.get(position).getId()));
-        });
     }
 
     private void updateLabel(EditText editText, Calendar calendar) {
@@ -221,7 +240,6 @@ public class SavingsAdapter extends RecyclerView.Adapter<SavingsAdapter.ViewHold
         TextView savingT, savingV, amountT, amountV, startDateT, startDateV;
         TextView endDateT, endDateV, dailyAmountT, dailyAmountV, statusT, statusV;
         Button withdraw, fund;
-        MaterialButton viewTransaction;
         View dStartDate, dEndDate;
         TableRow rowFundBtn;
 
@@ -245,7 +263,6 @@ public class SavingsAdapter extends RecyclerView.Adapter<SavingsAdapter.ViewHold
             dStartDate = itemView.findViewById(R.id.d_start_date);
             dEndDate = itemView.findViewById(R.id.d_end_date);
             rowFundBtn = itemView.findViewById(R.id.row_fund_btn);
-            viewTransaction = itemView.findViewById(R.id.view_transaction_btn);
         }
     }
 }

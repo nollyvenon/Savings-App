@@ -193,7 +193,7 @@ public class HomeActivity extends AppCompatActivity {
 
             findViewById(R.id.drawer_customer_savings).setOnClickListener(v -> {
                 Intent intent = new Intent(HomeActivity.this, SavingsActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, RELOAD_CODE);
             });
 
             findViewById(R.id.drawer_customer_investments).setOnClickListener(v -> {
